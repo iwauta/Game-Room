@@ -8,7 +8,7 @@ import miniGames.RSP;
 /**
  * User Interface for RSP
  * 
- * @author u.iwai
+ * @author Utaha Iwai
  */
 public class RSPUI extends javax.swing.JFrame {
     

@@ -11,7 +11,7 @@ import view.RSPUI;
 /**
  * RSP.java - main structure of Rock Scissors Paper
  *
- * @author u.iwai
+ * @author Utaha Iwai
  * @since 14-Dec-2022, 11:58:13 AM
  */
 public class RSP extends MiniGames

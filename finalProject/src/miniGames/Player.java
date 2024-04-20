@@ -7,7 +7,7 @@ import tools.Dialogs;
 /**
  * Player.java - represents Player
  *
- * @author u.iwai
+ * @author Utaha Iwai
  * @since 14-Dec-2022, 11:11:12 AM
  */
 public class Player 

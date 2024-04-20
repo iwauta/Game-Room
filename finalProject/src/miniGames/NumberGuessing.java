@@ -10,7 +10,7 @@ import tools.Numbers;
  * NumberGuessing.java - main structure of Numer Guessing. User gets different 
  * number of guesses corresponds to a level they choose
  *
- * @author u.iwai
+ * @author Utaha Iwai
  * @since 2023/01/27, 12:52:55
  */
 public class NumberGuessing extends MiniGames

@@ -5,7 +5,7 @@ package miniGames;
 /**
  * MiniGames.java - abstract method. general structure of mini games.
  *
- * @author u.iwai
+ * @author Utaha Iwai
  * @since 13-Dec-2022, 12:01:40 PM
  */
 public abstract class MiniGames 

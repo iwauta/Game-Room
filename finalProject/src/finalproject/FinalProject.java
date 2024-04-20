@@ -17,7 +17,7 @@ import view.RankUI;
  * bet points to gain (if they win) or lose (if they lose). Introduces rank of
  * final scores.
  *
- * @author u.iwai
+ * @author Utaha Iwai
  * @since 13-Dec-2022
  */
 public class FinalProject {

@@ -15,7 +15,7 @@ package collections;
  *                |              |----> next
  *                +--------------+
  *
- * @author u.iwai
+ * @author Utaha Iwai
  * @param <T> The generic data type used in the class
  * @since 13-Dec-2022
  */

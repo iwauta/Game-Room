@@ -9,7 +9,7 @@ import tools.Dialogs;
  * Home Screen - to display before user sets properties and 
  * starts playing games
  * 
- * @author u.iwai
+ * @author Utaha Iwai
  */
 public class Home extends javax.swing.JFrame {
 

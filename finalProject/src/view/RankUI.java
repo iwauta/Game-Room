@@ -9,7 +9,7 @@ import tools.Dialogs;
 /**
  * Ranking screen - displays 5 highest scores with their names
  * 
- * @author u.iwai
+ * @author Utaha Iwai
  */
 public class RankUI extends javax.swing.JFrame {
 
