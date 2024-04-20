@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Home.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: monospace}
+pre {color: #000000; background-color: #ffffff; font-family: monospace}
+table {color: #404040; background-color: #e9e8e2; font-family: monospace}
+.ST0 {color: #969696; font-family: monospace; font-weight: bold}
+.ST1 {font-family: monospace; font-weight: bold}
+.ST4 {background-color: #dfdfdf; font-family: monospace; font-weight: bold}
+.comment {color: #969696}
+.guarded {background-color: #dfdfdf}
+.ST2 {color: #969696; background-color: #dfdfdf}
+.ST10 {font-family: monospace; font-weight: bold; font-style: italic}
+.ST8 {background-color: #dfdfdf; font-family: monospace; font-style: italic}
+.ST9 {font-family: monospace; font-style: italic}
+.literal {color: #336bdd}
+.ST3 {color: #336bdd; background-color: #dfdfdf}
+.ST6 {color: #ce54b8; background-color: #dfdfdf; font-family: monospace; font-style: italic}
+.ST12 {color: #ce54b8; font-family: monospace; font-style: italic}
+.ST5 {color: #ce54b8; background-color: #dfdfdf}
+.ST11 {color: #287bde}
+.string {color: #1e9347}
+.ST7 {color: #1e9347; background-color: #dfdfdf}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">C:\Users\owner\Desktop\CS40S\finalProject\src\view\Home.java</td></tr></table>
+<pre>
+  1 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">package</span> <span class="comment">class</span> <span class="comment">namespace</span> <span class="comment">*/</span>
+  2 <span class="literal">package</span> view;
+  3 
+  4 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">import</span> <span class="comment">statements</span> <span class="comment">*/</span>
+  5 <span class="literal">import</span> finalproject.FinalProject;
+  6 <span class="literal">import</span> tools.Dialogs;
+  7 
+  8 <span class="comment">/**</span>
+  9 <span class="comment"> * </span><span class="ST0">Home</span> <span class="ST0">Screen</span><span class="ST0"> - </span><span class="ST0">to</span> <span class="ST0">display</span> <span class="ST0">before</span> <span class="ST0">user</span> <span class="ST0">sets</span> <span class="ST0">properties</span> <span class="ST0">and</span> <span class="ST0">starts</span> <span class="ST0">playing</span> <span class="ST0">games</span>
+ 10 <span class="comment"> * </span>
+ 11 <span class="comment"> * </span><span class="ST0">@author</span> <span class="comment">u</span><span class="comment">.</span><span class="comment">iwai</span>
+ 12  <span class="comment">*/</span>
+ 13 <span class="literal">public</span> <span class="literal">class</span> <span class="ST1">Home</span> <span class="literal">extends</span> javax.swing.JFrame {
+ 14 
+ 15     <span class="comment">/**</span>
+ 16 <span class="comment">     * </span><span class="comment">Creates</span> <span class="comment">new</span> <span class="comment">form</span> <span class="comment">Home</span>
+ 17      <span class="comment">*/</span>
+ 18     <span class="literal">public</span> <span class="ST1">Home</span>() {
+ 19         initComponents();
+ 20         <span class="literal">this</span>.pack();
+ 21         <span class="literal">this</span>.setLocationRelativeTo(<span class="literal">n</span><span class="literal">ull</span>);
+ 22         <span class="literal">this</span>.setVisible(<span class="literal">t</span><span class="literal">rue</span>);
+ 23     }
+ 24 
+ 25     <span class="comment">/**</span>
+ 26 <span class="comment">     * </span><span class="ST0">This</span> <span class="ST0">method</span> <span class="ST0">is</span> <span class="ST0">called</span> <span class="ST0">from</span> <span class="ST0">within</span> <span class="ST0">the</span> <span class="ST0">constructor</span> <span class="ST0">to</span> <span class="ST0">initialize</span> <span class="ST0">the</span> <span class="ST0">form</span><span class="ST0">.</span>
+ 27 <span class="comment">     * </span><span class="comment">WARNING</span><span class="comment">: </span><span class="comment">Do</span> <span class="comment">NOT</span> <span class="comment">modify</span> <span class="comment">this</span> <span class="comment">code</span><span class="comment">.</span> <span class="comment">The</span> <span class="comment">content</span> <span class="comment">of</span> <span class="comment">this</span> <span class="comment">method</span> <span class="comment">is</span> <span class="comment">always</span>
+ 28 <span class="comment">     * </span><span class="comment">regenerated</span> <span class="comment">by</span> <span class="comment">the</span> <span class="comment">Form</span> <span class="comment">Editor</span><span class="comment">.</span>
+ 29      <span class="comment">*/</span>
+ 30     @SuppressWarnings(<span class="string">&quot;</span><span class="string">unchecked</span><span class="string">&quot;</span>)
+ 31     <span class="ST2">// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;                          </span>
+ 32     <span class="ST3">private</span> <span class="ST3">void</span> <span class="ST4">initComponents</span><span class="guarded">(</span><span class="guarded">)</span> <span class="guarded">{</span>
+ 33 
+ 34         <span class="ST5">jLabel1</span> <span class="guarded">=</span> <span class="ST3">new</span> <span class="guarded">javax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">JLabel</span><span class="guarded">(</span><span class="guarded">)</span><span class="guarded">;</span>
+ 35         <span class="ST5">jLabel2</span> <span class="guarded">=</span> <span class="ST3">new</span> <span class="guarded">javax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">JLabel</span><span class="guarded">(</span><span class="guarded">)</span><span class="guarded">;</span>
+ 36         <span class="ST5">jButton1</span> <span class="guarded">=</span> <span class="ST3">new</span> <span class="guarded">javax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">JButton</span><span class="guarded">(</span><span class="guarded">)</span><span class="guarded">;</span>
+ 37 
+ 38         <span class="guarded">setDefaultCloseOperation</span><span class="guarded">(</span><span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">WindowConstants</span><span class="guarded">.</span><span class="ST6">EXIT_ON_CLOSE</span><span class="guarded">)</span><span class="guarded">;</span>
+ 39         <span class="guarded">addMouseListener</span><span class="guarded">(</span><span class="ST3">new</span> <span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">event</span><span class="guarded">.</span><span class="guarded">MouseAdapter</span><span class="guarded">(</span><span class="guarded">)</span> <span class="guarded">{</span>
+ 40             <span class="ST3">public</span> <span class="ST3">void</span> <span class="ST4">mouseClicked</span><span class="guarded">(</span><span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">event</span><span class="guarded">.</span><span class="guarded">MouseEvent</span> <span class="guarded">evt</span><span class="guarded">)</span> <span class="guarded">{</span>
+ 41                 <span class="guarded">formMouseClicked</span><span class="guarded">(</span><span class="guarded">evt</span><span class="guarded">)</span><span class="guarded">;</span>
+ 42             <span class="guarded">}</span>
+ 43         <span class="guarded">}</span><span class="guarded">)</span><span class="guarded">;</span>
+ 44 
+ 45         <span class="ST5">jLabel1</span><span class="guarded">.</span><span class="guarded">setFont</span><span class="guarded">(</span><span class="ST3">new</span> <span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">Font</span><span class="guarded">(</span><span class="ST7">&quot;</span><span class="ST7">Yu Gothic UI</span><span class="ST7">&quot;</span><span class="guarded">,</span> <span class="guarded">1</span><span class="guarded">,</span> <span class="guarded">6</span><span class="guarded">0</span><span class="guarded">)</span><span class="guarded">)</span><span class="guarded">;</span> <span class="ST2">// NOI18N</span>
+ 46         <span class="ST5">jLabel1</span><span class="guarded">.</span><span class="guarded">setForeground</span><span class="guarded">(</span><span class="ST3">new</span> <span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">Color</span><span class="guarded">(</span><span class="guarded">0</span><span class="guarded">,</span> <span class="guarded">1</span><span class="guarded">53</span><span class="guarded">,</span> <span class="guarded">0</span><span class="guarded">)</span><span class="guarded">)</span><span class="guarded">;</span>
+ 47         <span class="ST5">jLabel1</span><span class="guarded">.</span><span class="guarded">setHorizontalAlignment</span><span class="guarded">(</span><span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">SwingConstants</span><span class="guarded">.</span><span class="ST6">CENTER</span><span class="guarded">)</span><span class="guarded">;</span>
+ 48         <span class="ST5">jLabel1</span><span class="guarded">.</span><span class="guarded">setText</span><span class="guarded">(</span><span class="ST7">&quot;</span><span class="ST7">WELCOME!</span><span class="ST7">&quot;</span><span class="guarded">)</span><span class="guarded">;</span>
+ 49 
+ 50         <span class="ST5">jLabel2</span><span class="guarded">.</span><span class="guarded">setFont</span><span class="guarded">(</span><span class="ST3">new</span> <span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">Font</span><span class="guarded">(</span><span class="ST7">&quot;</span><span class="ST7">Yu Gothic UI Light</span><span class="ST7">&quot;</span><span class="guarded">,</span> <span class="guarded">0</span><span class="guarded">,</span> <span class="guarded">2</span><span class="guarded">4</span><span class="guarded">)</span><span class="guarded">)</span><span class="guarded">;</span> <span class="ST2">// NOI18N</span>
+ 51         <span class="ST5">jLabel2</span><span class="guarded">.</span><span class="guarded">setHorizontalAlignment</span><span class="guarded">(</span><span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">SwingConstants</span><span class="guarded">.</span><span class="ST6">CENTER</span><span class="guarded">)</span><span class="guarded">;</span>
+ 52         <span class="ST5">jLabel2</span><span class="guarded">.</span><span class="guarded">setText</span><span class="guarded">(</span><span class="ST7">&quot;</span><span class="ST7">click to start</span><span class="ST7">&quot;</span><span class="guarded">)</span><span class="guarded">;</span>
+ 53 
+ 54         <span class="ST5">jButton1</span><span class="guarded">.</span><span class="guarded">setText</span><span class="guarded">(</span><span class="ST7">&quot;</span><span class="ST7">EXIT</span><span class="ST7">&quot;</span><span class="guarded">)</span><span class="guarded">;</span>
+ 55         <span class="ST5">jButton1</span><span class="guarded">.</span><span class="guarded">addMouseListener</span><span class="guarded">(</span><span class="ST3">new</span> <span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">event</span><span class="guarded">.</span><span class="guarded">MouseAdapter</span><span class="guarded">(</span><span class="guarded">)</span> <span class="guarded">{</span>
+ 56             <span class="ST3">public</span> <span class="ST3">void</span> <span class="ST4">mouseClicked</span><span class="guarded">(</span><span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">event</span><span class="guarded">.</span><span class="guarded">MouseEvent</span> <span class="guarded">evt</span><span class="guarded">)</span> <span class="guarded">{</span>
+ 57                 <span class="guarded">jButton1MouseClicked</span><span class="guarded">(</span><span class="guarded">evt</span><span class="guarded">)</span><span class="guarded">;</span>
+ 58             <span class="guarded">}</span>
+ 59         <span class="guarded">}</span><span class="guarded">)</span><span class="guarded">;</span>
+ 60 
+ 61         <span class="guarded">javax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span> <span class="guarded">layout</span> <span class="guarded">=</span> <span class="ST3">new</span> <span class="guarded">javax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">(</span><span class="guarded">g</span><span class="guarded">etContentPane</span><span class="guarded">(</span><span class="guarded">)</span><span class="guarded">)</span><span class="guarded">;</span>
+ 62         <span class="guarded">getContentPane</span><span class="guarded">(</span><span class="guarded">)</span><span class="guarded">.</span><span class="guarded">setLayout</span><span class="guarded">(</span><span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">)</span><span class="guarded">;</span>
+ 63         <span class="guarded">layout</span><span class="guarded">.</span><span class="guarded">setHorizontalGroup</span><span class="guarded">(</span>
+ 64             <span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">.</span><span class="guarded">createParallelGroup</span><span class="guarded">(</span><span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST8">Alignment</span><span class="guarded">.</span><span class="ST6">LEADING</span><span class="guarded">)</span>
+ 65             <span class="guarded">.</span><span class="guarded">addGroup</span><span class="guarded">(</span><span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">.</span><span class="guarded">createSequentialGroup</span><span class="guarded">(</span><span class="guarded">)</span>
+ 66                 <span class="guarded">.</span><span class="guarded">addGroup</span><span class="guarded">(</span><span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">.</span><span class="guarded">createParallelGroup</span><span class="guarded">(</span><span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST8">Alignment</span><span class="guarded">.</span><span class="ST6">LEADING</span><span class="guarded">)</span>
+ 67                     <span class="guarded">.</span><span class="guarded">addGroup</span><span class="guarded">(</span><span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">.</span><span class="guarded">createSequentialGroup</span><span class="guarded">(</span><span class="guarded">)</span>
+ 68                         <span class="guarded">.</span><span class="guarded">addGap</span><span class="guarded">(</span><span class="guarded">1</span><span class="guarded">4</span><span class="guarded">,</span> <span class="guarded">1</span><span class="guarded">4</span><span class="guarded">,</span> <span class="guarded">1</span><span class="guarded">4</span><span class="guarded">)</span>
+ 69                         <span class="guarded">.</span><span class="guarded">addComponent</span><span class="guarded">(</span><span class="ST5">j</span><span class="ST5">Label1</span><span class="guarded">,</span> <span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST6">PREFERRED_SIZE</span><span class="guarded">,</span> <span class="guarded">3</span><span class="guarded">70</span><span class="guarded">,</span> <span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST6">PREFERRED_SIZE</span><span class="guarded">)</span><span class="guarded">)</span>
+ 70                     <span class="guarded">.</span><span class="guarded">addGroup</span><span class="guarded">(</span><span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">.</span><span class="guarded">createSequentialGroup</span><span class="guarded">(</span><span class="guarded">)</span>
+ 71                         <span class="guarded">.</span><span class="guarded">addGap</span><span class="guarded">(</span><span class="guarded">1</span><span class="guarded">02</span><span class="guarded">,</span> <span class="guarded">1</span><span class="guarded">02</span><span class="guarded">,</span> <span class="guarded">1</span><span class="guarded">02</span><span class="guarded">)</span>
+ 72                         <span class="guarded">.</span><span class="guarded">addComponent</span><span class="guarded">(</span><span class="ST5">j</span><span class="ST5">Label2</span><span class="guarded">,</span> <span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST6">PREFERRED_SIZE</span><span class="guarded">,</span> <span class="guarded">1</span><span class="guarded">90</span><span class="guarded">,</span> <span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST6">PREFERRED_SIZE</span><span class="guarded">)</span><span class="guarded">)</span>
+ 73                     <span class="guarded">.</span><span class="guarded">addGroup</span><span class="guarded">(</span><span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">.</span><span class="guarded">createSequentialGroup</span><span class="guarded">(</span><span class="guarded">)</span>
+ 74                         <span class="guarded">.</span><span class="guarded">addContainerGap</span><span class="guarded">(</span><span class="guarded">)</span>
+ 75                         <span class="guarded">.</span><span class="guarded">addComponent</span><span class="guarded">(</span><span class="ST5">j</span><span class="ST5">Button1</span><span class="guarded">)</span><span class="guarded">)</span><span class="guarded">)</span>
+ 76                 <span class="guarded">.</span><span class="guarded">addContainerGap</span><span class="guarded">(</span><span class="guarded">1</span><span class="guarded">6</span><span class="guarded">,</span> <span class="guarded">S</span><span class="guarded">hort</span><span class="guarded">.</span><span class="ST6">MAX_VALUE</span><span class="guarded">)</span><span class="guarded">)</span>
+ 77         <span class="guarded">)</span><span class="guarded">;</span>
+ 78         <span class="guarded">layout</span><span class="guarded">.</span><span class="guarded">setVerticalGroup</span><span class="guarded">(</span>
+ 79             <span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">.</span><span class="guarded">createParallelGroup</span><span class="guarded">(</span><span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST8">Alignment</span><span class="guarded">.</span><span class="ST6">LEADING</span><span class="guarded">)</span>
+ 80             <span class="guarded">.</span><span class="guarded">addGroup</span><span class="guarded">(</span><span class="guarded">l</span><span class="guarded">ayout</span><span class="guarded">.</span><span class="guarded">createSequentialGroup</span><span class="guarded">(</span><span class="guarded">)</span>
+ 81                 <span class="guarded">.</span><span class="guarded">addGap</span><span class="guarded">(</span><span class="guarded">7</span><span class="guarded">3</span><span class="guarded">,</span> <span class="guarded">7</span><span class="guarded">3</span><span class="guarded">,</span> <span class="guarded">7</span><span class="guarded">3</span><span class="guarded">)</span>
+ 82                 <span class="guarded">.</span><span class="guarded">addComponent</span><span class="guarded">(</span><span class="ST5">j</span><span class="ST5">Label1</span><span class="guarded">,</span> <span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST6">PREFERRED_SIZE</span><span class="guarded">,</span> <span class="guarded">7</span><span class="guarded">8</span><span class="guarded">,</span> <span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST6">PREFERRED_SIZE</span><span class="guarded">)</span>
+ 83                 <span class="guarded">.</span><span class="guarded">addPreferredGap</span><span class="guarded">(</span><span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">LayoutStyle</span><span class="guarded">.</span><span class="ST8">ComponentPlacement</span><span class="guarded">.</span><span class="ST6">RELATED</span><span class="guarded">)</span>
+ 84                 <span class="guarded">.</span><span class="guarded">addComponent</span><span class="guarded">(</span><span class="ST5">j</span><span class="ST5">Label2</span><span class="guarded">,</span> <span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST6">PREFERRED_SIZE</span><span class="guarded">,</span> <span class="guarded">3</span><span class="guarded">6</span><span class="guarded">,</span> <span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">GroupLayout</span><span class="guarded">.</span><span class="ST6">PREFERRED_SIZE</span><span class="guarded">)</span>
+ 85                 <span class="guarded">.</span><span class="guarded">addPreferredGap</span><span class="guarded">(</span><span class="guarded">j</span><span class="guarded">avax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">LayoutStyle</span><span class="guarded">.</span><span class="ST8">ComponentPlacement</span><span class="guarded">.</span><span class="ST6">RELATED</span><span class="guarded">,</span> <span class="guarded">5</span><span class="guarded">2</span><span class="guarded">,</span> <span class="guarded">S</span><span class="guarded">hort</span><span class="guarded">.</span><span class="ST6">MAX_VALUE</span><span class="guarded">)</span>
+ 86                 <span class="guarded">.</span><span class="guarded">addComponent</span><span class="guarded">(</span><span class="ST5">j</span><span class="ST5">Button1</span><span class="guarded">)</span>
+ 87                 <span class="guarded">.</span><span class="guarded">addContainerGap</span><span class="guarded">(</span><span class="guarded">)</span><span class="guarded">)</span>
+ 88         <span class="guarded">)</span><span class="guarded">;</span>
+ 89 
+ 90         <span class="guarded">pack</span><span class="guarded">(</span><span class="guarded">)</span><span class="guarded">;</span>
+ 91     <span class="guarded">}</span><span class="ST2">// &lt;/editor-fold&gt;                        </span>
+ 92 
+ 93     <span class="comment">/**</span>
+ 94 <span class="comment">     * </span><span class="ST0">form</span> <span class="ST0">clicked</span>
+ 95 <span class="comment">     * </span>
+ 96 <span class="comment">     * </span><span class="ST0">@param</span> evt <span class="comment">starts</span> <span class="comment">the</span> <span class="comment">program</span>
+ 97      <span class="comment">*/</span>
+ 98     <span class="ST3">private</span> <span class="ST3">void</span> <span class="ST4">formMouseClicked</span><span class="guarded">(</span><span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">event</span><span class="guarded">.</span><span class="guarded">MouseEvent</span> <span class="guarded">evt</span><span class="guarded">)</span> <span class="guarded">{</span>                                  
+ 99         <span class="comment">// TODO add your handling code here:</span>
+100         <span class="literal">this</span>.setVisible(<span class="literal">f</span><span class="literal">alse</span>);
+101         FinalProject.<span class="ST9">run</span>();
+102     <span class="guarded">}</span>                                 
+103 
+104     <span class="comment">/**</span>
+105 <span class="comment">     * </span><span class="ST0">exit</span> <span class="ST0">bottun</span> <span class="ST0">clicked</span> 
+106 <span class="comment">     * </span>
+107 <span class="comment">     * </span><span class="ST0">@param</span> evt <span class="comment">exits</span> <span class="comment">the</span> <span class="comment">program</span>
+108      <span class="comment">*/</span>
+109     <span class="ST3">private</span> <span class="ST3">void</span> <span class="ST4">jButton1MouseClicked</span><span class="guarded">(</span><span class="guarded">java</span><span class="guarded">.</span><span class="guarded">awt</span><span class="guarded">.</span><span class="guarded">event</span><span class="guarded">.</span><span class="guarded">MouseEvent</span> <span class="guarded">evt</span><span class="guarded">)</span> <span class="guarded">{</span>                                      
+110         <span class="comment">// TODO add your handling code here:</span>
+111         <span class="literal">if</span> (Dialogs.<span class="ST9">yesNo</span>(<span class="string">&quot;</span><span class="string">Are you sure you want to exit?</span><span class="string">&quot;</span>)){
+112         System.<span class="ST9">exit</span>(0);
+113         }
+114     <span class="guarded">}</span>                                     
+115 
+116     <span class="comment">/**</span>
+117 <span class="comment">     * </span><span class="ST0">@param</span> args <span class="comment">the</span> <span class="comment">command</span> <span class="comment">line</span> <span class="comment">arguments</span>
+118      <span class="comment">*/</span>
+119     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST10">main</span>(String args[]) {
+120         <span class="comment">/* Set the Nimbus look and feel */</span>
+121         <span class="comment">//&lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot; Look and feel setting code (optional) &quot;&gt;</span>
+122         <span class="comment">/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.</span>
+123 <span class="comment">         * For details see </span><span class="ST11">http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html</span> 
+124 <span class="comment">         */</span>
+125         <span class="literal">try</span> {
+126             <span class="literal">for</span> (javax.swing.UIManager.<span class="ST9">LookAndFeelInfo</span> info : javax.swing.UIManager.<span class="ST9">getInstalledLookAndFeels</span>()) {
+127                 <span class="literal">if</span> (<span class="string">&quot;</span><span class="string">Nimbus</span><span class="string">&quot;</span>.equals(info.getName())) {
+128                     javax.swing.UIManager.<span class="ST9">setLookAndFeel</span>(info.getClassName());
+129                     <span class="literal">break</span>;
+130                 }
+131             }
+132         } <span class="literal">catch</span> (ClassNotFoundException ex) {
+133             java.util.logging.Logger.<span class="ST9">getLogger</span>(Home.<span class="literal">class</span>.getName()).log(java.util.logging.Level.<span class="ST12">SEVERE</span>, <span class="literal">n</span><span class="literal">ull</span>, ex);
+134         } <span class="literal">catch</span> (InstantiationException ex) {
+135             java.util.logging.Logger.<span class="ST9">getLogger</span>(Home.<span class="literal">class</span>.getName()).log(java.util.logging.Level.<span class="ST12">SEVERE</span>, <span class="literal">n</span><span class="literal">ull</span>, ex);
+136         } <span class="literal">catch</span> (IllegalAccessException ex) {
+137             java.util.logging.Logger.<span class="ST9">getLogger</span>(Home.<span class="literal">class</span>.getName()).log(java.util.logging.Level.<span class="ST12">SEVERE</span>, <span class="literal">n</span><span class="literal">ull</span>, ex);
+138         } <span class="literal">catch</span> (javax.swing.UnsupportedLookAndFeelException ex) {
+139             java.util.logging.Logger.<span class="ST9">getLogger</span>(Home.<span class="literal">class</span>.getName()).log(java.util.logging.Level.<span class="ST12">SEVERE</span>, <span class="literal">n</span><span class="literal">ull</span>, ex);
+140         }
+141         <span class="comment">//&lt;/editor-fold&gt;</span>
+142 
+143         <span class="comment">/* Create and display the form */</span>
+144         java.awt.EventQueue.<span class="ST9">invokeLater</span>(<span class="literal">new</span> Runnable() {
+145             <span class="literal">public</span> <span class="literal">void</span> <span class="ST1">run</span>() {
+146                 <span class="literal">new</span> Home().setVisible(<span class="literal">t</span><span class="literal">rue</span>);
+147             }
+148         });
+149     }
+150 
+151     <span class="ST2">// Variables declaration - do not modify                     </span>
+152     <span class="ST3">private</span> <span class="guarded">javax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">JButton</span> <span class="ST5">jButton1</span><span class="guarded">;</span>
+153     <span class="ST3">private</span> <span class="guarded">javax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">JLabel</span> <span class="ST5">jLabel1</span><span class="guarded">;</span>
+154     <span class="ST3">private</span> <span class="guarded">javax</span><span class="guarded">.</span><span class="guarded">swing</span><span class="guarded">.</span><span class="guarded">JLabel</span> <span class="ST5">jLabel2</span><span class="guarded">;</span>
+155     <span class="ST2">// End of variables declaration                   </span>
+156 }
+157 
+</pre></body>
+</html>

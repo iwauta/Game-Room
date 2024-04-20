@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>RSP.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: monospace}
+pre {color: #000000; background-color: #ffffff; font-family: monospace}
+table {color: #404040; background-color: #e9e8e2; font-family: monospace}
+.ST0 {color: #969696; font-family: monospace; font-weight: bold}
+.ST1 {font-family: monospace; font-weight: bold}
+.comment {color: #969696}
+.ST4 {font-family: monospace; font-weight: bold; font-style: italic}
+.ST3 {font-family: monospace; font-style: italic}
+.ST2 {color: #ce54b8; font-family: monospace; font-style: italic}
+.string {color: #1e9347}
+.ST5 {color: #1e9347; font-family: monospace; font-weight: bold}
+.literal {color: #336bdd}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">C:\Users\owner\Desktop\CS40S\finalProject\src\miniGames\RSP.java</td></tr></table>
+<pre>
+ 1 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">package</span> <span class="comment">class</span> <span class="comment">namespace</span> <span class="comment">*/</span>
+ 2 <span class="literal">package</span> miniGames;
+ 3 
+ 4 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">import</span> <span class="comment">statements</span> <span class="comment">*/</span>
+ 5 <span class="literal">import</span> finalproject.FinalProject;
+ 6 <span class="literal">import</span> tools.Dialogs;
+ 7 <span class="literal">import</span> tools.Numbers;
+ 8 <span class="literal">import</span> view.RSPUI;
+ 9 
+10  
+11 <span class="comment">/**</span>
+12 <span class="comment"> * </span><span class="ST0">RSP</span><span class="ST0">.</span><span class="ST0">java</span><span class="ST0"> - </span><span class="ST0">main</span> <span class="ST0">structure</span> <span class="ST0">of</span> <span class="ST0">Rock</span> <span class="ST0">Scissors</span> <span class="ST0">Paper</span>
+13 <span class="comment"> *</span>
+14 <span class="comment"> * </span><span class="ST0">@author</span> <span class="comment">u</span><span class="comment">.</span><span class="comment">iwai</span>
+15 <span class="comment"> * </span><span class="ST0">@since</span><span class="comment"> 14-</span><span class="comment">Dec</span><span class="comment">-2022, 11:58:13 </span><span class="comment">AM</span>
+16  <span class="comment">*/</span>
+17 <span class="literal">public</span> <span class="literal">class</span> <span class="ST1">RSP</span> <span class="literal">extends</span> MiniGames
+18 {
+19 
+20     <span class="comment">// Properties......</span>
+21     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">int</span> <span class="ST2">opp</span>;
+22     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">int</span> <span class="ST2">user</span>;
+23     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">final</span> <span class="literal">double</span> <span class="ST2">RATE</span> = 1.2;
+24     
+25     <span class="comment">/**</span>
+26 <span class="comment">     * </span><span class="comment">Default</span> <span class="comment">constructor</span><span class="comment">, </span><span class="comment">set</span> <span class="comment">class</span> <span class="comment">properties</span>
+27      <span class="comment">*/</span>
+28     <span class="literal">public</span> <span class="ST1">RSP</span>() {
+29         <span class="literal">super</span>(<span class="ST2">R</span><span class="ST2">ATE</span>);
+30         <span class="ST2">opp</span> = <span class="ST3">getOpponentChoice</span>();
+31     }
+32     
+33     <span class="comment">/**</span>
+34 <span class="comment">     * </span><span class="ST0">Generates</span> <span class="ST0">a</span> <span class="ST0">random</span> <span class="ST0">number</span> <span class="ST0">between</span><span class="ST0"> 1 </span><span class="ST0">and</span><span class="ST0"> 3 </span><span class="ST0">as</span> <span class="ST0">an</span> <span class="ST0">opponent</span><span class="ST0">&#39;</span><span class="ST0">s</span> <span class="ST0">choice</span>
+35 <span class="comment">     * </span>
+36 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">random</span> <span class="comment">number</span> <span class="comment">between</span><span class="comment"> 1 </span><span class="comment">and</span><span class="comment"> 3</span>
+37      <span class="comment">*/</span>
+38     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">int</span> <span class="ST4">getOpponentChoice</span>() {
+39         <span class="literal">return</span> Numbers.<span class="ST3">random</span>(1, 3);
+40     }
+41     
+42     <span class="comment">/**</span>
+43 <span class="comment">     * </span><span class="ST0">Determines</span> <span class="ST0">if</span> <span class="ST0">the</span> <span class="ST0">user</span> <span class="ST0">wins</span> <span class="ST0">or</span> <span class="ST0">loses</span>
+44 <span class="comment">     * </span>
+45 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">user</span> <span class="comment">wins</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">user</span> <span class="comment">loses</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+46      <span class="comment">*/</span>
+47     @Override
+48     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST1">didIWin</span>() {
+49         <span class="ST2">user</span> = RSPUI.<span class="ST3">getUserChoice</span>(); 
+50         <span class="literal">if</span>      (<span class="ST2">user</span> == 1 &amp;&amp; <span class="ST2">opp</span> == 2) <span class="literal">return</span> <span class="literal">true</span>; <span class="comment">// user-rock, opp-scissors</span>
+51         <span class="literal">else</span> <span class="literal">if</span> (<span class="ST2">user</span> == 2 &amp;&amp; <span class="ST2">opp</span> == 3) <span class="literal">return</span> <span class="literal">true</span>; <span class="comment">// user-scissors, opp-paper</span>
+52         <span class="literal">else</span> <span class="literal">if</span> (<span class="ST2">user</span> == 3 &amp;&amp; <span class="ST2">opp</span> == 1) <span class="literal">return</span> <span class="literal">true</span>; <span class="comment">// user-paper, opp-rock</span>
+53         <span class="literal">return</span> <span class="literal">false</span>;                                <span class="comment">// user loses</span>
+54     }
+55 
+56     <span class="comment">/**</span>
+57 <span class="comment">     * </span><span class="ST0">Outputs</span> <span class="ST0">the</span> <span class="ST0">opponent</span><span class="ST0">&#39;</span><span class="ST0">s</span> <span class="ST0">hand</span> <span class="ST0">and</span> <span class="ST0">the</span> <span class="ST0">user</span><span class="ST0">&#39;</span><span class="ST0">s</span> <span class="ST0">hand</span><span class="ST0">.</span> <span class="comment">If</span> <span class="comment">they</span> <span class="comment">tie</span> <span class="comment">up</span> <span class="comment">forces</span>
+58 <span class="comment">     * </span><span class="comment">the</span> <span class="comment">user</span> <span class="comment">to</span> <span class="comment">play</span> <span class="comment">again</span><span class="comment">.</span>
+59      <span class="comment">*/</span>
+60     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST4">result</span>() {
+61         String u = <span class="string">&quot;&quot;</span>;
+62         String o = <span class="string">&quot;&quot;</span>;
+63         <span class="ST2">user</span> = RSPUI.<span class="ST3">getUserChoice</span>();     
+64         <span class="literal">if</span> (<span class="ST2">user</span> == 1) u = <span class="string">&quot;</span><span class="string">ROCK</span><span class="string">&quot;</span>;
+65         <span class="literal">if</span> (<span class="ST2">user</span> == 2) u = <span class="string">&quot;</span><span class="string">SCISSORS</span><span class="string">&quot;</span>;
+66         <span class="literal">if</span> (<span class="ST2">user</span> == 3) u = <span class="string">&quot;</span><span class="string">PAPER</span><span class="string">&quot;</span>;
+67         <span class="literal">if</span> (<span class="ST2">opp</span> == 1)  o = <span class="string">&quot;</span><span class="string">ROCK</span><span class="string">&quot;</span>;
+68         <span class="literal">if</span> (<span class="ST2">opp</span> == 2)  o = <span class="string">&quot;</span><span class="string">SCISSORS</span><span class="string">&quot;</span>;
+69         <span class="literal">if</span> (<span class="ST2">opp</span> == 3)  o = <span class="string">&quot;</span><span class="string">PAPER</span><span class="string">&quot;</span>;
+70         String text = <span class="string">&quot;</span><span class="string">You picked: </span><span class="string">&quot;</span> + u + <span class="string">&quot;</span><span class="ST5">\n</span><span class="string">Bot picked: </span><span class="string">&quot;</span> + o;
+71         <span class="comment">// Outputs result</span>
+72         Dialogs.<span class="ST3">output</span>(text);
+73         <span class="comment">// Ties up, force the user to play again</span>
+74         <span class="literal">if</span> (<span class="ST2">user</span> == <span class="ST2">opp</span>) { 
+75             Dialogs.<span class="ST3">output</span>(<span class="string">&quot;</span><span class="ST5">\n</span><span class="ST5">\t</span><span class="string">You tied! Try again!</span><span class="string">&quot;</span>);
+76             <span class="ST2">user</span> = 0;
+77             <span class="ST2">opp</span> = <span class="ST3">getOpponentChoice</span>();
+78             RSPUI rspUI = <span class="literal">new</span> RSPUI();
+79         }
+80         <span class="comment">// Game set, displays result</span>
+81         <span class="literal">else</span> FinalProject.<span class="ST3">showResult</span>();
+82     }
+83     
+84 
+85     
+86 }
+</pre></body>
+</html>

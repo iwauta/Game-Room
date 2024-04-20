@@ -1,0 +1,798 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>LinkedList.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: monospace}
+pre {color: #000000; background-color: #ffffff; font-family: monospace}
+table {color: #404040; background-color: #e9e8e2; font-family: monospace}
+.ST0 {color: #969696; font-family: monospace; font-weight: bold}
+.ST2 {font-family: monospace; font-weight: bold}
+.comment {color: #969696}
+.ST4 {font-family: monospace; font-style: italic}
+.ST1 {color: #9999ff; font-family: monospace; font-weight: bold}
+.ST3 {color: #ce54b8}
+.string {color: #1e9347}
+.literal {color: #336bdd}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">C:\Users\owner\Desktop\CS40S\finalProject\src\collections\LinkedList.java</td></tr></table>
+<pre>
+  1 
+  2 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">package</span> <span class="comment">class</span> <span class="comment">namespace</span> <span class="comment">*/</span>
+  3 <span class="literal">package</span> collections;
+  4 
+  5 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">imports</span> <span class="comment">*/</span>
+  6 <span class="literal">import</span> java.lang.reflect.Array;
+  7 
+  8  
+  9 <span class="comment">/**</span>
+ 10 <span class="comment"> * </span><span class="ST0">LinkedList</span><span class="ST0">.</span><span class="ST0">java</span><span class="ST0"> - </span><span class="ST0">an</span> <span class="ST0">implementation</span> <span class="ST0">of</span> <span class="ST0">a</span> <span class="ST0">linked</span> <span class="ST0">list</span> <span class="ST0">abstract</span><span class="ST0"> (</span><span class="ST0">advanced</span><span class="ST0">)</span>
+ 11 <span class="comment"> * </span><span class="ST0">data</span><span class="ST0"> (</span><span class="ST0">dynamic</span><span class="ST0">) </span><span class="ST0">type</span><span class="ST0"> (</span><span class="ST0">ADT</span><span class="ST0">) </span><span class="ST0">and</span> <span class="ST0">useful</span> <span class="ST0">methods</span><span class="ST0">, </span><span class="ST0">and</span> <span class="ST0">could</span> <span class="ST0">be</span><span class="ST0"> &quot;</span><span class="ST0">visualized</span><span class="ST0">&quot; </span><span class="ST0">as</span><span class="ST0">:</span>
+ 12 <span class="comment"> * </span>
+ 13 <span class="comment"> *             </span><span class="ST0">+------+       +------+       +------+       +------+      </span>
+ 14 <span class="comment"> *  </span><span class="ST0">null</span> <span class="ST1">&lt;---- |      | </span><span class="ST1">&lt;---- |      | </span><span class="ST1">&lt;---- |      | </span><span class="ST1">&lt;---- |      |  </span>
+ 15 <span class="ST1"> *             </span><span class="ST1">| NODE |       | NODE |       | NODE |       | NODE |       </span>
+ 16 <span class="ST1"> *             </span><span class="ST1">|      |----&gt;</span><span class="ST0">  |      |----&gt;  |      |----&gt;  |      |----&gt; </span><span class="ST0">null</span>  
+ 17 <span class="comment"> *             </span><span class="ST0">+------+       +------+       +------+       +------+      </span>
+ 18 <span class="comment"> *                 </span><span class="ST0">^                                           ^</span>
+ 19 <span class="comment"> *                 </span><span class="ST0">|                                           |</span>
+ 20 <span class="comment"> *                </span><span class="ST0">head</span>                                        <span class="ST0">tail</span>
+ 21 <span class="comment"> *</span>
+ 22 <span class="comment"> * </span><span class="ST0">@author</span> <span class="comment">u</span><span class="comment">.</span><span class="comment">iwai</span>
+ 23 <span class="comment"> * </span><span class="ST0">@param</span> &lt;T&gt; <span class="comment">The</span> <span class="comment">generic</span> <span class="comment">data</span> <span class="comment">type</span> <span class="comment">used</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">class</span>
+ 24 <span class="comment"> * </span><span class="ST0">@since</span><span class="comment"> 13-</span><span class="comment">Dec</span><span class="comment">-2022</span>
+ 25  <span class="comment">*/</span>
+ 26 <span class="literal">public</span> <span class="literal">class</span> <span class="ST2">LinkedList</span> &lt;T&gt;
+ 27 {
+ 28     
+ 29     <span class="comment">/**</span> <span class="comment">Flag</span> <span class="comment">to</span> <span class="comment">indicate</span> <span class="comment">a</span> <span class="comment">search</span> <span class="comment">was</span> <span class="comment">not</span> <span class="comment">found</span> <span class="comment">*/</span>
+ 30     <span class="literal">public</span> <span class="literal">final</span> <span class="literal">int</span> <span class="ST3">NOT_FOUND</span> = -1;
+ 31     
+ 32     <span class="comment">/**</span> <span class="comment">Reference</span><span class="comment"> (</span><span class="comment">link</span><span class="comment">) </span><span class="comment">to</span> <span class="comment">the</span> <span class="comment">first</span><span class="comment"> (</span><span class="comment">front</span><span class="comment">) </span><span class="comment">node</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">list</span><span class="comment"> (</span><span class="comment">entry</span> <span class="comment">point</span><span class="comment">) </span><span class="comment">*/</span>
+ 33     <span class="literal">private</span> Node <span class="ST3">head</span>;
+ 34     
+ 35     <span class="comment">/**</span> <span class="comment">Reference</span><span class="comment"> (</span><span class="comment">link</span><span class="comment">) </span><span class="comment">to</span> <span class="comment">the</span> <span class="comment">last</span><span class="comment"> (</span><span class="comment">back</span><span class="comment">) </span><span class="comment">node</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">list</span><span class="comment"> (</span><span class="comment">entry</span> <span class="comment">point</span><span class="comment">) </span><span class="comment">*/</span>
+ 36     <span class="literal">private</span> Node <span class="ST3">tail</span>;
+ 37     
+ 38     <span class="comment">/**</span> 
+ 39 <span class="comment">     * </span><span class="comment">The</span> <span class="comment">number</span> <span class="comment">of</span> <span class="comment">nodes</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">list</span><span class="comment">, </span><span class="comment">cannot</span> <span class="comment">be</span> <span class="comment">changed</span> <span class="comment">outside</span> <span class="comment">the</span> <span class="comment">class</span><span class="comment">,</span>
+ 40 <span class="comment">     * </span><span class="comment">so</span> <span class="comment">it</span> <span class="comment">is</span> <span class="comment">an</span> <span class="comment">immutable</span> <span class="comment">encapsulated</span> <span class="comment">property</span>
+ 41      <span class="comment">*/</span>
+ 42     <span class="literal">private</span> <span class="literal">int</span> <span class="ST3">length</span>;
+ 43     
+ 44     
+ 45     <span class="comment">/**</span>
+ 46 <span class="comment">     * </span><span class="comment">Default</span> <span class="comment">constructor</span><span class="comment">, </span><span class="comment">set</span> <span class="comment">class</span> <span class="comment">properties</span>
+ 47      <span class="comment">*/</span>
+ 48     <span class="literal">public</span> <span class="ST2">LinkedList</span>() {
+ 49         finalize();
+ 50     }
+ 51                 
+ 52     <span class="comment">/**</span>
+ 53 <span class="comment">     * </span><span class="ST0">Constructor</span> <span class="ST0">instantiates</span> <span class="ST0">list</span> <span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">data</span>
+ 54 <span class="comment">     * </span>
+ 55 <span class="comment">     * </span><span class="ST0">@param</span> array <span class="comment">the</span> <span class="comment">data</span> <span class="comment">objects</span> <span class="comment">to</span> <span class="comment">create</span> <span class="comment">the</span> <span class="comment">list</span> <span class="comment">from</span>
+ 56      <span class="comment">*/</span>
+ 57     <span class="literal">public</span> <span class="ST2">LinkedList</span>(T[] array) {
+ 58         fromArray(array);
+ 59     }
+ 60         
+ 61     <span class="comment">/**</span>
+ 62 <span class="comment">     * </span><span class="ST0">Constructor</span> <span class="ST0">instantiates</span> <span class="ST0">list</span> <span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">data</span>
+ 63 <span class="comment">     * </span>
+ 64 <span class="comment">     * </span><span class="ST0">@param</span> list <span class="comment">the</span> <span class="comment">data</span> <span class="comment">objects</span> <span class="comment">to</span> <span class="comment">create</span> <span class="comment">the</span> <span class="comment">list</span> <span class="comment">from</span>
+ 65      <span class="comment">*/</span>
+ 66     <span class="literal">public</span> <span class="ST2">LinkedList</span>(LinkedList&lt;T&gt; list) {
+ 67         fromLinkedList(list);
+ 68     }
+ 69     
+ 70     <span class="comment">/**</span>
+ 71 <span class="comment">     * </span><span class="comment">Frees</span> <span class="comment">up</span> <span class="comment">all</span> <span class="comment">memory</span> <span class="comment">used</span> <span class="comment">by</span> <span class="comment">this</span> <span class="comment">object</span>
+ 72      <span class="comment">*/</span>
+ 73     @Override
+ 74     <span class="literal">public</span> <span class="literal">void</span> <span class="ST2">finalize</span>() {
+ 75         <span class="ST3">length</span> = 0;                 <span class="comment">// length set to zero</span>
+ 76         <span class="ST3">head</span> = <span class="ST3">tail</span> = <span class="literal">null</span>;         <span class="comment">// References set to nulls</span>
+ 77         System.<span class="ST4">gc</span>();                <span class="comment">// Runs the garbage collector in Java</span>
+ 78     }
+ 79         
+ 80     <span class="comment">/**</span>
+ 81 <span class="comment">     * </span><span class="ST0">Determines</span> <span class="ST0">if</span> <span class="ST0">the</span> <span class="ST0">list</span> <span class="ST0">is</span> <span class="ST0">empty</span><span class="ST0"> (</span><span class="ST0">no</span> <span class="ST0">nodes</span><span class="ST0">) </span><span class="ST0">or</span> <span class="ST0">not</span>
+ 82 <span class="comment">     * </span>
+ 83 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">it</span> <span class="comment">is</span> <span class="comment">empty</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">it</span> <span class="comment">does</span> <span class="comment">contain</span> <span class="comment">some</span> <span class="comment">data</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+ 84      <span class="comment">*/</span>
+ 85     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">isEmpty</span>() {
+ 86         <span class="literal">return</span> <span class="ST3">length</span> == 0;
+ 87     }
+ 88     
+ 89     <span class="comment">/**</span>
+ 90 <span class="comment">     * </span><span class="ST0">Accessor</span> <span class="ST0">method</span> <span class="ST0">for</span> <span class="ST0">the</span> <span class="ST0">number</span> <span class="ST0">of</span> <span class="ST0">nodes</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span><span class="ST0"> (</span><span class="ST0">the</span> <span class="ST0">length</span> <span class="ST0">is</span> <span class="ST0">a</span> 
+ 91 <span class="comment">     * </span><span class="ST0">immutable</span> <span class="ST0">encapsulated</span> <span class="ST0">property</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">class</span><span class="ST0">) - </span><span class="ST0">no</span> <span class="ST0">mutator</span> <span class="ST0">method</span> <span class="ST0">will</span>
+ 92 <span class="comment">     * </span><span class="ST0">be</span> <span class="ST0">written</span><span class="ST0"> (</span><span class="ST0">so</span><span class="ST0"> &#39;</span><span class="ST0">length</span><span class="ST0">&#39; </span><span class="ST0">remains</span> <span class="ST0">a</span> <span class="ST0">read</span><span class="ST0">-</span><span class="ST0">only</span> <span class="ST0">property</span> <span class="ST0">from</span> <span class="ST0">outside</span> <span class="ST0">the</span> 
+ 93 <span class="comment">     * </span><span class="ST0">class</span><span class="comment">)</span>
+ 94 <span class="comment">     * </span>
+ 95 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">number</span> <span class="comment">of</span> <span class="comment">nodes</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">list</span>
+ 96      <span class="comment">*/</span>
+ 97     <span class="literal">public</span> <span class="literal">int</span> <span class="ST2">size</span>() {
+ 98         <span class="literal">return</span> <span class="ST3">length</span>;
+ 99     }
+100          
+101     <span class="comment">/**</span>
+102 <span class="comment">     * </span><span class="ST0">String</span> <span class="ST0">representation</span> <span class="ST0">of</span> <span class="ST0">this</span> <span class="ST0">object</span>
+103 <span class="comment">     *</span>
+104 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">The</span> <span class="comment">object</span> <span class="comment">represented</span> <span class="comment">as</span> <span class="comment">a</span> <span class="comment">String</span>
+105      <span class="comment">*/</span>
+106     @Override
+107     <span class="literal">public</span> String <span class="ST2">toString</span>() {
+108         <span class="literal">if</span> (isEmpty()) <span class="literal">return</span> <span class="string">&quot;</span><span class="string">Empty LinkedList</span><span class="string">&quot;</span>;   <span class="comment">// No nodes to display</span>
+109         String text = <span class="string">&quot;</span><span class="string">LinkedList [</span><span class="string">&quot;</span>;               <span class="comment">// String to build up</span>
+110         <span class="comment">// Start a reference (link) at the first (head) node (entry point)</span>
+111         Node current = <span class="ST3">head</span>;                    <span class="comment">// Start at head node</span>
+112         <span class="literal">while</span> (current.<span class="ST3">next</span> != <span class="literal">null</span>) {          <span class="comment">// Traverse (travel) the list</span>
+113             <span class="comment">// Appending the node data to the string and a seperator comma</span>
+114             text += current.<span class="ST3">data</span>.toString() + <span class="string">&quot;</span><span class="string">,</span><span class="string">&quot;</span>;   
+115             current = current.<span class="ST3">next</span>;             <span class="comment">// Move to the next node</span>
+116         }
+117         <span class="literal">return</span> text + current.<span class="ST3">data</span>.toString() + <span class="string">&quot;</span><span class="string">]</span><span class="string">&quot;</span>;  
+118         <span class="comment">// Sending back the string</span>
+119     }
+120    
+121     <span class="comment">/**</span>
+122 <span class="comment">     * </span><span class="ST0">Inserts</span><span class="ST0"> (</span><span class="ST0">adds</span><span class="ST0">) </span><span class="ST0">data</span><span class="ST0"> (</span><span class="ST0">generic</span> <span class="ST0">type</span><span class="ST0">) </span><span class="ST0">into</span> <span class="ST0">the</span> <span class="ST0">back</span><span class="ST0"> (</span><span class="ST0">tail</span><span class="ST0">, </span><span class="ST0">end</span><span class="ST0">, </span><span class="ST0">etc</span><span class="ST0">) </span><span class="ST0">of</span>
+123 <span class="comment">     * </span><span class="ST0">this</span> <span class="ST0">list</span>
+124 <span class="comment">     * </span>
+125 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">generic</span> <span class="comment">type</span> <span class="comment">to</span> <span class="comment">add</span> <span class="comment">in</span>
+126 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+127      <span class="comment">*/</span>
+128     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">addBack</span>(T data) {
+129         <span class="literal">if</span> (data == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">false</span>;     <span class="comment">// null data cannot be added            </span>
+130         Node&lt;T&gt; node = <span class="literal">new</span> Node&lt;&gt;(data);    <span class="comment">// new (memory) Node object created</span>
+131         
+132         <span class="comment">// General programmer scenarios to consider:</span>
+133         <span class="comment">//  (1) Typical case - what does a &#39;normal&#39; user do?</span>
+134         <span class="comment">//  (2) Edge case(s) - what if we pushing the edge/limits?</span>
+135         <span class="comment">//  (3) Beyond the edge - what if we try to intentially crash this?</span>
+136         
+137         <span class="comment">// Scenarios for this method to consider:</span>
+138         <span class="comment">//  (1) Empty list</span>
+139         <span class="comment">//  (2) List of 1 or more nodes</span>
+140         
+141         <span class="literal">if</span> (isEmpty()) {                    <span class="comment">// Adding first node</span>
+142             <span class="ST3">head</span> = <span class="ST3">tail</span> = node;             <span class="comment">// Set LinkedList references</span>
+143         }
+144         <span class="literal">else</span> {                              <span class="comment">// Subsequent nodes added</span>
+145             node.<span class="ST3">previous</span> = <span class="ST3">tail</span>;           <span class="comment">// Link node to rest of list</span>
+146             <span class="ST3">tail</span>.<span class="ST3">next</span> = node;               <span class="comment">// Connect rest of list to node</span>
+147             <span class="ST3">tail</span> = node;                    <span class="comment">// Reassign tail reference</span>
+148         }
+149         <span class="ST3">length</span>++;                           <span class="comment">// Increase length environmental</span>
+150         <span class="literal">return</span> <span class="literal">true</span>;                        <span class="comment">// Operation successful</span>
+151     }
+152     
+153     
+154     <span class="comment">/**</span>
+155 <span class="comment">     * </span><span class="ST0">Inserts</span><span class="ST0"> (</span><span class="ST0">adds</span><span class="ST0">) </span><span class="ST0">data</span><span class="ST0"> (</span><span class="ST0">generic</span> <span class="ST0">type</span><span class="ST0">) </span><span class="ST0">into</span> <span class="ST0">the</span> <span class="ST0">front</span><span class="ST0"> (</span><span class="ST0">head</span><span class="ST0">, </span><span class="ST0">start</span><span class="ST0">, </span><span class="ST0">etc</span><span class="ST0">) </span><span class="ST0">of</span>
+156 <span class="comment">     * </span><span class="ST0">this</span> <span class="ST0">list</span>
+157 <span class="comment">     * </span>
+158 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">generic</span> <span class="comment">type</span> <span class="comment">to</span> <span class="comment">add</span> <span class="comment">in</span>
+159 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+160      <span class="comment">*/</span>
+161     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">addFront</span>(T data) {
+162         <span class="literal">if</span> (data == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">false</span>;     <span class="comment">// null data cannot be added            </span>
+163         Node&lt;T&gt; node = <span class="literal">new</span> Node&lt;&gt;(data);    <span class="comment">// new (memory) Node object created</span>
+164         <span class="literal">if</span> (isEmpty()) {                    <span class="comment">// Adding first node</span>
+165             <span class="ST3">head</span> = <span class="ST3">tail</span> = node;             <span class="comment">// Set LinkedList references</span>
+166         }
+167         <span class="literal">else</span> {                              <span class="comment">// Subsequent nodes added</span>
+168             node.<span class="ST3">next</span> = <span class="ST3">head</span>;               <span class="comment">// Link node to rest of list</span>
+169             <span class="ST3">head</span>.<span class="ST3">previous</span> = node;           <span class="comment">// Connect rest of list to node</span>
+170             <span class="ST3">head</span> = node;                    <span class="comment">// Reassign head reference</span>
+171         }
+172         <span class="ST3">length</span>++;                           <span class="comment">// Increase length environmental</span>
+173         <span class="literal">return</span> <span class="literal">true</span>;                        <span class="comment">// Operation successful</span>
+174     }
+175     
+176     <span class="comment">/**</span>
+177 <span class="comment">     * </span><span class="ST0">Accessor</span> <span class="ST0">for</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">at</span> <span class="ST0">the</span> <span class="ST0">specified</span> <span class="ST0">index</span>
+178 <span class="comment">     * </span>
+179 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">index</span> <span class="comment">location</span> <span class="comment">to</span> <span class="comment">access</span>
+180 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">data</span><span class="comment"> (</span><span class="comment">or</span> <span class="comment">null</span><span class="comment">) </span><span class="comment">at</span> <span class="comment">the</span> <span class="comment">index</span>
+181      <span class="comment">*/</span>
+182     <span class="literal">public</span> T <span class="ST2">get</span>(<span class="literal">int</span> index) {        
+183         <span class="literal">if</span> (!inRange(index)) <span class="literal">return</span> <span class="literal">null</span>;   <span class="comment">// Invalid index, return flag        </span>
+184         <span class="literal">return</span> (T)getNode(index).<span class="ST3">data</span>;      <span class="comment">// Get reference and retrieve data  </span>
+185     }
+186     
+187     <span class="comment">/**</span>
+188 <span class="comment">     * </span><span class="ST0">Mutator</span> <span class="ST0">method</span> <span class="ST0">sets</span> <span class="ST0">the</span> <span class="ST0">index</span> <span class="ST0">location</span> <span class="ST0">to</span> <span class="ST0">the</span> <span class="ST0">new</span> <span class="ST0">data</span>
+189 <span class="comment">     * </span>
+190 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">index</span> <span class="comment">location</span> <span class="comment">to</span> <span class="comment">mutate</span>
+191 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">new</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">mutate</span> <span class="comment">into</span>
+192 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+193      <span class="comment">*/</span>
+194     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">set</span>(<span class="literal">int</span> index, T data) {
+195         <span class="literal">if</span> (!inRange(index)) <span class="literal">return</span> <span class="literal">false</span>;          <span class="comment">// Invalid index</span>
+196         <span class="literal">if</span> (data == <span class="literal">null</span>)    <span class="literal">return</span> <span class="literal">false</span>;          <span class="comment">// Invalid data</span>
+197         Node current = getNode(index);              <span class="comment">// Get to node at index</span>
+198         current.<span class="ST3">data</span> = data;                        <span class="comment">// Change node data</span>
+199         <span class="literal">return</span> <span class="literal">true</span>;                                <span class="comment">// Operation successful</span>
+200     }
+201     
+202     <span class="comment">/**</span>
+203 <span class="comment">     * </span><span class="ST0">Adds</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">to</span> <span class="ST0">the</span> <span class="ST0">back</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">list</span><span class="ST0"> (</span><span class="ST0">wrapper</span> <span class="ST0">method</span><span class="comment">)</span>
+204 <span class="comment">     * </span>
+205 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">add</span>
+206 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+207      <span class="comment">*/</span>
+208     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">add</span>(T data) {
+209         <span class="literal">return</span> addBack(data);                           <span class="comment">// Wrapper method call</span>
+210     }
+211         
+212     <span class="comment">/**</span>
+213 <span class="comment">     * </span><span class="ST0">Deep</span> <span class="ST0">comparison</span><span class="ST0">, </span><span class="ST0">determines</span> <span class="ST0">if</span> <span class="ST0">two</span> <span class="ST0">objects</span> <span class="ST0">are</span><span class="ST0"> &quot;</span><span class="ST0">equal</span><span class="ST0">&quot; </span><span class="ST0">in</span> <span class="ST0">this</span> <span class="ST0">context</span>
+214 <span class="comment">     *</span>
+215 <span class="comment">     * </span><span class="ST0">@param</span> object <span class="comment">the</span> <span class="comment">object</span> <span class="comment">to</span> <span class="comment">compare</span> <span class="comment">to</span>
+216 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">objects</span> <span class="comment">are</span><span class="comment"> &quot;</span><span class="comment">equal</span><span class="comment">&quot; (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+217      <span class="comment">*/</span>
+218     @Override
+219     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">equals</span>(Object object) {
+220         LinkedList&lt;T&gt; that = (LinkedList&lt;T&gt;)object;     <span class="comment">// Cast object to list</span>
+221         <span class="literal">if</span> (<span class="literal">this</span>.size() != that.size()) <span class="literal">return</span> <span class="literal">false</span>;   <span class="comment">// Not same sizes      </span>
+222         Node current1 = <span class="literal">this</span>.getFirstNode();            <span class="comment">// Get reference to</span>
+223         Node current2 = that.getFirstNode();            <span class="comment">// Nodes in each list    </span>
+224         <span class="literal">while</span> (current1 != <span class="literal">null</span>) {                      <span class="comment">// Traverse lists</span>
+225             <span class="literal">if</span> (!current1.equals(current2)) {           <span class="comment">// Not equal data </span>
+226                 <span class="literal">return</span> <span class="literal">false</span>;                           <span class="comment">// Not equal lists</span>
+227             }                
+228             current1 = current1.<span class="ST3">next</span>;                   <span class="comment">// Move each reference</span>
+229             current2 = current2.<span class="ST3">next</span>;                   <span class="comment">// to next node</span>
+230         }
+231         <span class="literal">return</span> <span class="literal">true</span>;                                    <span class="comment">// Lists are equal</span>
+232     }
+233        
+234     <span class="comment">/**</span>
+235 <span class="comment">     * </span><span class="ST0">a</span> <span class="ST0">Deep</span> <span class="ST0">clone</span><span class="ST0">, </span><span class="ST0">creates</span> <span class="ST0">a</span> <span class="ST0">duplicate</span> <span class="ST0">object</span> <span class="ST0">using</span> <span class="ST0">new</span> <span class="ST0">memory</span>
+236 <span class="comment">     *</span>
+237 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">a</span><span class="comment"> &quot;</span><span class="comment">clone</span><span class="comment">&quot; </span><span class="comment">of</span> <span class="comment">the</span> <span class="comment">object</span> <span class="comment">using</span> <span class="comment">new</span> <span class="comment">memory</span>
+238      <span class="comment">*/</span>
+239     @Override
+240     <span class="literal">public</span> LinkedList <span class="ST2">clone</span>() {
+241         LinkedList&lt;T&gt; that = <span class="literal">new</span> LinkedList&lt;&gt;();    <span class="comment">// Create new list memory</span>
+242         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; <span class="literal">this</span>.<span class="ST3">length</span>; i++) {     <span class="comment">// Traverse list</span>
+243             that.add((T)<span class="literal">this</span>.get(i));               <span class="comment">// Get and add node data</span>
+244         }        
+245         <span class="literal">return</span> that;                                <span class="comment">// New list returned</span>
+246     }
+247     
+248     <span class="comment">/**</span>
+249 <span class="comment">     * </span><span class="ST0">Inserts</span> <span class="ST0">data</span> <span class="ST0">as</span> <span class="ST0">a</span> <span class="ST0">new</span> <span class="ST0">node</span> <span class="ST0">after</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">index</span>
+250 <span class="comment">     * </span>
+251 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">data</span> <span class="comment">type</span> <span class="comment">to</span> <span class="comment">insert</span>
+252 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">index</span> <span class="comment">location</span> <span class="comment">to</span> <span class="comment">insert</span> <span class="comment">after</span>
+253 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+254      <span class="comment">*/</span>
+255     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">addAfter</span>(T data, <span class="literal">int</span> index) {
+256         <span class="literal">if</span> (data == <span class="literal">null</span>)    <span class="literal">return</span> <span class="literal">false</span>;              <span class="comment">// invalid data to add</span>
+257         <span class="literal">if</span> (!inRange(index)) <span class="literal">return</span> <span class="literal">false</span>;              <span class="comment">// index out of range        </span>
+258         <span class="literal">if</span> (index == <span class="ST3">length</span>-1) <span class="literal">return</span> addBack(data);    <span class="comment">// add to end of list</span>
+259         Node&lt;T&gt; node = <span class="literal">new</span> Node&lt;&gt;(data);                <span class="comment">// create node object</span>
+260         Node current = getNode(index);                  <span class="comment">// get to index spot</span>
+261         node.<span class="ST3">next</span> = current.<span class="ST3">next</span>;                       <span class="comment">// set proper references</span>
+262         current.<span class="ST3">next</span>.<span class="ST3">previous</span> = node;
+263         current.<span class="ST3">next</span> = node;
+264         node.<span class="ST3">previous</span> = current;            
+265         <span class="ST3">length</span>++;                                       <span class="comment">// increase length</span>
+266         <span class="literal">return</span> <span class="literal">true</span>;                                    <span class="comment">// opperation successful</span>
+267     }
+268         
+269     <span class="comment">/**</span>
+270 <span class="comment">     * </span><span class="ST0">Inserts</span> <span class="ST0">data</span> <span class="ST0">as</span> <span class="ST0">a</span> <span class="ST0">new</span> <span class="ST0">node</span> <span class="ST0">before</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">index</span>
+271 <span class="comment">     * </span>
+272 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">data</span> <span class="comment">type</span> <span class="comment">to</span> <span class="comment">insert</span>
+273 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">index</span> <span class="comment">location</span> <span class="comment">to</span> <span class="comment">insert</span> <span class="comment">before</span>
+274 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+275      <span class="comment">*/</span>
+276     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">addBefore</span>(T data, <span class="literal">int</span> index) {
+277         <span class="literal">if</span> (data == <span class="literal">null</span>)    <span class="literal">return</span> <span class="literal">false</span>;              <span class="comment">// invalid data to add</span>
+278         <span class="literal">if</span> (!inRange(index)) <span class="literal">return</span> <span class="literal">false</span>;              <span class="comment">// index out of range        </span>
+279         <span class="literal">if</span> (index == 0)      <span class="literal">return</span> addFront(data);     <span class="comment">// add to start of list</span>
+280         Node&lt;T&gt; node = <span class="literal">new</span> Node&lt;&gt;(data);                <span class="comment">// create node object</span>
+281         Node current = getNode(index);                  <span class="comment">// get to index spot</span>
+282         node.<span class="ST3">previous</span> = current.<span class="ST3">previous</span>;               <span class="comment">// set proper references</span>
+283         current.<span class="ST3">previous</span>.<span class="ST3">next</span> = node;
+284         current.<span class="ST3">previous</span> = node;
+285         node.<span class="ST3">next</span> = current;            
+286         <span class="ST3">length</span>++;                                       <span class="comment">// increase length</span>
+287         <span class="literal">return</span> <span class="literal">true</span>;                                    <span class="comment">// opperation successful</span>
+288     }    
+289         
+290     <span class="comment">/**</span>
+291 <span class="comment">     * </span><span class="ST0">Adds</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">before</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">index</span><span class="ST0"> (</span><span class="ST0">wrapper</span> <span class="ST0">method</span><span class="comment">)</span>
+292 <span class="comment">     * </span>
+293 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">add</span>
+294 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">index</span> <span class="comment">location</span> <span class="comment">to</span> <span class="comment">add</span> <span class="comment">before</span>
+295 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+296      <span class="comment">*/</span>
+297     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">add</span>(T data, <span class="literal">int</span> index) {
+298         <span class="literal">return</span> addAfter(data, index);                   <span class="comment">// wrapper method call</span>
+299     }
+300     
+301     <span class="comment">/**</span>
+302 <span class="comment">     * </span><span class="ST0">Accesses</span> <span class="ST0">the</span> <span class="ST0">first</span><span class="ST0">, </span><span class="ST0">head</span><span class="ST0">, </span><span class="ST0">front</span> <span class="ST0">data</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+303 <span class="comment">     * </span>
+304 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">head</span> <span class="comment">data</span>
+305      <span class="comment">*/</span>
+306     <span class="literal">public</span> T <span class="ST2">front</span>() {
+307         <span class="literal">return</span> get(0);                              <span class="comment">// first node</span>
+308     }
+309     
+310     <span class="comment">/**</span>
+311 <span class="comment">     * </span><span class="ST0">Accesses</span> <span class="ST0">the</span> <span class="ST0">last</span><span class="ST0">, </span><span class="ST0">tail</span><span class="ST0">, </span><span class="ST0">back</span> <span class="ST0">data</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+312 <span class="comment">     * </span>
+313 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">tail</span> <span class="comment">data</span>
+314      <span class="comment">*/</span>
+315     <span class="literal">public</span> T <span class="ST2">back</span>() {
+316         <span class="literal">return</span> get(<span class="ST3">length</span>-1);                       <span class="comment">// last node</span>
+317     }
+318     
+319     <span class="comment">/**</span>
+320 <span class="comment">     * </span><span class="ST0">Removes</span><span class="ST0"> (</span><span class="ST0">deletes</span><span class="ST0">) </span><span class="ST0">the</span> <span class="ST0">first</span><span class="ST0"> (</span><span class="ST0">head</span><span class="ST0">) </span><span class="ST0">node</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">list</span>
+321 <span class="comment">     * </span>
+322 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">data</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">first</span> <span class="comment">node</span><span class="comment"> (</span><span class="comment">or</span> <span class="comment">null</span><span class="comment">)</span>
+323      <span class="comment">*/</span>
+324     <span class="literal">public</span> T <span class="ST2">removeFront</span>() {
+325         <span class="literal">if</span> (isEmpty()) <span class="literal">return</span> <span class="literal">null</span>;             <span class="comment">// no front to remove</span>
+326         T data = front();                       <span class="comment">// store head data</span>
+327         <span class="literal">if</span> (<span class="ST3">length</span> == 1) finalize();            <span class="comment">// 1 node list, wipe list</span>
+328         <span class="literal">else</span> {                
+329             <span class="ST3">head</span> = <span class="ST3">head</span>.<span class="ST3">next</span>;                   <span class="comment">// advanced head reference</span>
+330             <span class="ST3">head</span>.<span class="ST3">previous</span>.<span class="ST3">next</span> = <span class="literal">null</span>;          <span class="comment">// cut old head reference</span>
+331             <span class="ST3">head</span>.<span class="ST3">previous</span> = <span class="literal">null</span>;               <span class="comment">// cut reference to old head</span>
+332             <span class="ST3">length</span>--;                           <span class="comment">// reduce list length</span>
+333             System.<span class="ST4">gc</span>();                        <span class="comment">// call system garbage collector</span>
+334         }
+335         <span class="literal">return</span> data;                            <span class="comment">// return stored data</span>
+336     }
+337     
+338     <span class="comment">/**</span>
+339 <span class="comment">     * </span><span class="ST0">Removes</span><span class="ST0"> (</span><span class="ST0">deletes</span><span class="ST0">) </span><span class="ST0">the</span> <span class="ST0">last</span><span class="ST0"> (</span><span class="ST0">tail</span><span class="ST0">) </span><span class="ST0">node</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">list</span>
+340 <span class="comment">     * </span>
+341 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">data</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">last</span> <span class="comment">node</span><span class="comment"> (</span><span class="comment">or</span> <span class="comment">null</span><span class="comment">)</span>
+342      <span class="comment">*/</span>
+343     <span class="literal">public</span> T <span class="ST2">removeBack</span>() {
+344         <span class="literal">if</span> (isEmpty()) <span class="literal">return</span> <span class="literal">null</span>;             <span class="comment">// no back to remove</span>
+345         T data = back();                        <span class="comment">// store tail data</span>
+346         <span class="literal">if</span> (<span class="ST3">length</span> == 1) finalize();            <span class="comment">// 1 node list, wipe list</span>
+347         <span class="literal">else</span> {                
+348             <span class="ST3">tail</span> = <span class="ST3">tail</span>.<span class="ST3">previous</span>;               <span class="comment">// advanced tail reference</span>
+349             <span class="ST3">tail</span>.<span class="ST3">next</span>.<span class="ST3">previous</span> = <span class="literal">null</span>;          <span class="comment">// cut old tail reference</span>
+350             <span class="ST3">tail</span>.<span class="ST3">next</span> = <span class="literal">null</span>;                   <span class="comment">// cut reference to old tail</span>
+351             <span class="ST3">length</span>--;                           <span class="comment">// reduce list length</span>
+352             System.<span class="ST4">gc</span>();                        <span class="comment">// call system garbage collector</span>
+353         }
+354         <span class="literal">return</span> data;                            <span class="comment">// return stored data</span>
+355     }
+356     
+357     <span class="comment">/**</span>
+358 <span class="comment">     * </span><span class="ST0">Deletes</span> <span class="ST0">the</span> <span class="ST0">node</span> <span class="ST0">at</span> <span class="ST0">the</span> <span class="ST0">specified</span> <span class="ST0">index</span> <span class="ST0">and</span> <span class="ST0">mutates</span> <span class="ST0">the</span> <span class="ST0">list</span>
+359 <span class="comment">     * </span>
+360 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">index</span> <span class="comment">location</span> <span class="comment">to</span> <span class="comment">remove</span>
+361 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">data</span> <span class="comment">at</span> <span class="comment">the</span> <span class="comment">specified</span> <span class="comment">index</span><span class="comment"> (</span><span class="comment">or</span> <span class="comment">null</span><span class="comment">)</span>
+362      <span class="comment">*/</span>
+363     <span class="literal">public</span> T <span class="ST2">remove</span>(<span class="literal">int</span> index) {
+364         <span class="literal">if</span> (!inRange(index))   <span class="literal">return</span> <span class="literal">null</span>;             <span class="comment">// not in range</span>
+365         <span class="literal">if</span> (index == 0)        <span class="literal">return</span> removeFront();    <span class="comment">// remove first</span>
+366         <span class="literal">if</span> (index == <span class="ST3">length</span>-1) <span class="literal">return</span> removeBack();     <span class="comment">// remove last</span>
+367         Node current = getNode(index);                  <span class="comment">// get to index</span>
+368         current.<span class="ST3">next</span>.<span class="ST3">previous</span> = current.<span class="ST3">previous</span>;       <span class="comment">// change references</span>
+369         current.<span class="ST3">previous</span>.<span class="ST3">next</span> = current.<span class="ST3">next</span>;
+370         current.<span class="ST3">next</span> = current.<span class="ST3">previous</span> = <span class="literal">null</span>;        
+371         <span class="ST3">length</span>--;                                       <span class="comment">// reduce list length</span>
+372         <span class="literal">return</span> (T)current.<span class="ST3">data</span>;                         <span class="comment">// return index data</span>
+373     }
+374     
+375     <span class="comment">/**</span>
+376 <span class="comment">     * </span><span class="ST0">Checks</span><span class="ST0"> (</span><span class="ST0">searches</span><span class="ST0">) </span><span class="ST0">if</span> <span class="ST0">the</span> <span class="ST0">specified</span> <span class="ST0">data</span> <span class="ST0">is</span> <span class="ST0">inside</span> <span class="ST0">the</span> <span class="ST0">list</span>
+377 <span class="comment">     * </span>
+378 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">check</span> <span class="comment">for</span>
+379 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">data</span> <span class="comment">is</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">list</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+380      <span class="comment">*/</span> 
+381     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">contains</span>(T data) {
+382         <span class="literal">if</span> (data == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">false</span>;         <span class="comment">// invalid data to search for</span>
+383         Node current = <span class="ST3">head</span>;                    <span class="comment">// start reference at head</span>
+384         <span class="literal">while</span> (current != <span class="literal">null</span>) {               <span class="comment">// traverse list</span>
+385             <span class="literal">if</span> (current.<span class="ST3">data</span>.equals(data)) {    <span class="comment">// found first occurrence</span>
+386                 <span class="literal">return</span> <span class="literal">true</span>;                    <span class="comment">// indicate found</span>
+387             }
+388             current = current.<span class="ST3">next</span>;             <span class="comment">// move to next node</span>
+389         }
+390         <span class="literal">return</span> <span class="literal">false</span>;                           <span class="comment">// not found in list</span>
+391     } 
+392     
+393     <span class="comment">/**</span>
+394 <span class="comment">     * </span><span class="ST0">Finds</span> <span class="ST0">the</span> <span class="ST0">node</span> <span class="ST0">matching</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">at</span> <span class="ST0">the</span> <span class="ST0">first</span> <span class="ST0">occurrence</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+395 <span class="comment">     * </span><span class="ST0">and</span> <span class="ST0">returns</span> <span class="ST0">it</span><span class="ST0">&#39;</span><span class="ST0">s</span> <span class="ST0">index</span> <span class="ST0">or</span><span class="ST0"> -1 (</span><span class="ST0">NOT_FOUND</span><span class="ST0">) </span><span class="ST0">if</span> <span class="ST0">not</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+396 <span class="comment">     * </span>
+397 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">search</span> <span class="comment">for</span>
+398 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">index</span> <span class="comment">of</span> <span class="comment">first</span> <span class="comment">occurrence</span> <span class="comment">or</span><span class="comment"> -1 (</span><span class="comment">NOT_FOUND</span><span class="comment">)</span>
+399      <span class="comment">*/</span>
+400     <span class="literal">public</span> <span class="literal">int</span> <span class="ST2">firstIndexOf</span>(T data) {
+401         <span class="literal">if</span> (data == <span class="literal">null</span>) <span class="literal">return</span> <span class="ST3">NOT_FOUND</span>;     <span class="comment">// null data rejected</span>
+402         Node current = <span class="ST3">head</span>;                    <span class="comment">// start at head</span>
+403         <span class="literal">int</span> index = 0;                          <span class="comment">// start count at 0</span>
+404         <span class="literal">while</span> (current != <span class="literal">null</span>) {               <span class="comment">// traverse list</span>
+405             <span class="literal">if</span> (current.<span class="ST3">data</span>.equals(data)) {    <span class="comment">// found first occurrence</span>
+406                 <span class="literal">return</span> index;                   <span class="comment">// return location</span>
+407             }
+408             current = current.<span class="ST3">next</span>;             <span class="comment">// advance to next node</span>
+409             index++;                            <span class="comment">// advance count</span>
+410         }
+411         <span class="literal">return</span> <span class="ST3">NOT_FOUND</span>;                       <span class="comment">// data not found</span>
+412     }
+413     
+414     <span class="comment">/**</span>
+415 <span class="comment">     * </span><span class="ST0">Finds</span> <span class="ST0">the</span> <span class="ST0">node</span> <span class="ST0">matching</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">at</span> <span class="ST0">the</span> <span class="ST0">last</span> <span class="ST0">occurrence</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+416 <span class="comment">     * </span><span class="ST0">and</span> <span class="ST0">returns</span> <span class="ST0">it</span><span class="ST0">&#39;</span><span class="ST0">s</span> <span class="ST0">index</span> <span class="ST0">or</span><span class="ST0"> -1 (</span><span class="ST0">NOT_FOUND</span><span class="ST0">) </span><span class="ST0">if</span> <span class="ST0">not</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+417 <span class="comment">     * </span>
+418 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">search</span> <span class="comment">for</span>
+419 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">index</span> <span class="comment">of</span> <span class="comment">last</span> <span class="comment">occurrence</span> <span class="comment">or</span><span class="comment"> -1 (</span><span class="comment">NOT_FOUND</span><span class="comment">) </span>
+420      <span class="comment">*/</span>
+421     <span class="literal">public</span> <span class="literal">int</span> <span class="ST2">lastIndexOf</span>(T data) {
+422         <span class="literal">if</span> (data == <span class="literal">null</span>) <span class="literal">return</span> <span class="ST3">NOT_FOUND</span>;     <span class="comment">// null data rejected</span>
+423         Node current = <span class="ST3">tail</span>;                    <span class="comment">// start at head</span>
+424         <span class="literal">int</span> index = <span class="ST3">length</span>-1;                   <span class="comment">// start count at total nodes</span>
+425         <span class="literal">while</span> (current != <span class="literal">null</span>) {               <span class="comment">// traverse list</span>
+426             <span class="literal">if</span> (current.<span class="ST3">data</span>.equals(data)) {    <span class="comment">// found last occurrence</span>
+427                 <span class="literal">return</span> index;                   <span class="comment">// return location</span>
+428             }
+429             current = current.<span class="ST3">previous</span>;         <span class="comment">// return to previous node</span>
+430             index--;                            <span class="comment">// decrease count</span>
+431         }
+432         <span class="literal">return</span> <span class="ST3">NOT_FOUND</span>;                       <span class="comment">// data not found</span>
+433     }
+434     
+435     <span class="comment">/**</span>
+436 <span class="comment">     * </span><span class="ST0">The</span> <span class="ST0">number</span> <span class="ST0">of</span> <span class="ST0">instances</span> <span class="ST0">this</span> <span class="ST0">data</span> <span class="ST0">occurs</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+437 <span class="comment">     * </span>
+438 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">search</span> <span class="comment">for</span>
+439 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">number</span> <span class="comment">of</span> <span class="comment">instances</span> <span class="comment">of</span> <span class="comment">the</span> <span class="comment">data</span>
+440      <span class="comment">*/</span>
+441     <span class="literal">public</span> <span class="literal">int</span> <span class="ST2">numberOf</span>(T data) {
+442         <span class="literal">if</span> (data == <span class="literal">null</span>) <span class="literal">return</span> 0;             <span class="comment">// reject null data</span>
+443         <span class="literal">int</span> counter = 0;                        <span class="comment">// start a counter</span>
+444         Node current = <span class="ST3">head</span>;                    <span class="comment">// start at head of list</span>
+445         <span class="literal">while</span> (current != <span class="literal">null</span>) {               <span class="comment">// traverse list</span>
+446             <span class="literal">if</span> (current.<span class="ST3">data</span>.equals(data)) {    <span class="comment">// item found in list</span>
+447                 counter++;                      <span class="comment">// increase counter</span>
+448             }
+449             current = current.<span class="ST3">next</span>;             <span class="comment">// advance to next node</span>
+450         }
+451         <span class="literal">return</span> counter;                         <span class="comment">// counter returned</span>
+452     }
+453     
+454     <span class="comment">/**</span>
+455 <span class="comment">     * </span><span class="ST0">Accesses</span> <span class="ST0">all</span> <span class="ST0">occurrences</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">data</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span> <span class="ST0">and</span> <span class="ST0">returns</span> <span class="ST0">an</span>
+456 <span class="comment">     * </span><span class="ST0">integer</span> <span class="ST0">array</span> <span class="ST0">containing</span> <span class="ST0">all</span> <span class="ST0">index</span> <span class="ST0">values</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">occurred</span> <span class="ST0">at</span>
+457 <span class="comment">     * </span>
+458 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">search</span> <span class="comment">for</span>
+459 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">all</span> <span class="comment">indices</span> <span class="comment">location</span> <span class="comment">in</span> <span class="comment">an</span> <span class="comment">array</span> <span class="comment">or</span> <span class="comment">null</span> <span class="comment">if</span> <span class="comment">no</span> <span class="comment">indices</span>
+460      <span class="comment">*/</span>
+461     <span class="literal">public</span> <span class="literal">int</span>[] <span class="ST2">allIndices</span>(T data) {
+462         <span class="literal">if</span> (data == <span class="literal">null</span>)    <span class="literal">return</span> <span class="literal">null</span>;       <span class="comment">// reject null data</span>
+463         <span class="literal">if</span> (!contains(data)) <span class="literal">return</span> <span class="literal">null</span>;       <span class="comment">// no data in the list</span>
+464         <span class="literal">int</span> size = numberOf(data);              <span class="comment">// get number of occurrences</span>
+465         <span class="literal">int</span>[] array = <span class="literal">new</span> <span class="literal">int</span>[size];            <span class="comment">// create array </span>
+466         Node current = <span class="ST3">head</span>;                    <span class="comment">// start at head</span>
+467         <span class="literal">int</span> counter = 0;                        <span class="comment">// start counter</span>
+468         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; <span class="ST3">length</span>; i++) {      <span class="comment">// traverse list</span>
+469             <span class="literal">if</span> (current.<span class="ST3">data</span>.equals(data)) {    <span class="comment">// item encountered</span>
+470                 array[counter] = i;             <span class="comment">// insert index into array</span>
+471                 counter++;                      <span class="comment">// increase counter</span>
+472                 <span class="literal">if</span> (counter &gt;= size) {
+473                     <span class="literal">return</span> array;
+474                 }
+475             }
+476             current = current.<span class="ST3">next</span>;             <span class="comment">// move to next node</span>
+477         }
+478         <span class="literal">return</span> array;                           <span class="comment">// return completed array</span>
+479     }
+480     
+481     <span class="comment">/**</span>
+482 <span class="comment">     * </span><span class="ST0">Deletes</span> <span class="ST0">the</span> <span class="ST0">first</span> <span class="ST0">occurrence</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+483 <span class="comment">     * </span>
+484 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">remove</span>
+485 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">) </span>
+486      <span class="comment">*/</span>
+487     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">remove</span>(T data) {
+488         <span class="literal">if</span> (data == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">false</span>;         <span class="comment">// nothing to remove</span>
+489         <span class="literal">int</span> index = firstIndexOf(data);         <span class="comment">// get first location</span>
+490         <span class="literal">if</span> (index == <span class="ST3">NOT_FOUND</span>) <span class="literal">return</span> <span class="literal">false</span>;   <span class="comment">// not in list</span>
+491         remove(index);                          <span class="comment">// remove</span>
+492         <span class="literal">return</span> <span class="literal">true</span>;                            <span class="comment">// operation successful</span>
+493     }
+494     
+495     <span class="comment">/**</span>
+496 <span class="comment">     * </span><span class="ST0">Deletes</span> <span class="ST0">the</span> <span class="ST0">last</span> <span class="ST0">occurrence</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+497 <span class="comment">     * </span>
+498 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">remove</span>
+499 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">) </span>
+500      <span class="comment">*/</span>
+501     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">removeLast</span>(T data) {
+502         <span class="literal">if</span> (data == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">false</span>;         <span class="comment">// nothing to remove</span>
+503         <span class="literal">int</span> index = lastIndexOf(data);          <span class="comment">// get first location</span>
+504         <span class="literal">if</span> (index == <span class="ST3">NOT_FOUND</span>) <span class="literal">return</span> <span class="literal">false</span>;   <span class="comment">// not in list</span>
+505         remove(index);                          <span class="comment">// remove</span>
+506         <span class="literal">return</span> <span class="literal">true</span>;                            <span class="comment">// operation successful</span>
+507     }
+508     
+509     <span class="comment">/**</span>
+510 <span class="comment">     * </span><span class="ST0">Deletes</span> <span class="ST0">all</span> <span class="ST0">occurrences</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">data</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">list</span>
+511 <span class="comment">     * </span>
+512 <span class="comment">     * </span><span class="ST0">@param</span> data <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span> <span class="comment">to</span> <span class="comment">remove</span>
+513 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+514      <span class="comment">*/</span>
+515     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">removeAll</span>(T data) {
+516         <span class="literal">if</span> (data == <span class="literal">null</span>)    <span class="literal">return</span> <span class="literal">false</span>;      <span class="comment">// nothing to remove</span>
+517         <span class="literal">if</span> (!contains(data)) <span class="literal">return</span> <span class="literal">false</span>;      <span class="comment">// not in list</span>
+518         <span class="literal">while</span>(contains(data)) {                 <span class="comment">// loop continuously</span>
+519             remove(data);                       <span class="comment">// removing the data</span>
+520         }
+521         <span class="literal">return</span> <span class="literal">true</span>;                            <span class="comment">// operation successful</span>
+522     }
+523     
+524     <span class="comment">/**</span>
+525 <span class="comment">     * </span><span class="ST0">Deletes</span> <span class="ST0">all</span> <span class="ST0">occurrences</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">different</span> <span class="ST0">data</span> <span class="ST0">items</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">array</span> 
+526 <span class="comment">     * </span><span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">list</span>
+527 <span class="comment">     * </span>
+528 <span class="comment">     * </span><span class="ST0">@param</span> items <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span> <span class="comment">array</span> <span class="comment">items</span> <span class="comment">to</span> <span class="comment">remove</span>
+529 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+530      <span class="comment">*/</span>
+531     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">removeAll</span>(T[] items) {
+532          <span class="literal">if</span> (items == <span class="literal">null</span>)     <span class="literal">return</span> <span class="literal">false</span>;   <span class="comment">// invalid array</span>
+533          <span class="literal">if</span> (items.<span class="ST3">length</span> == 0) <span class="literal">return</span> <span class="literal">false</span>;   <span class="comment">// invalid array</span>
+534          <span class="literal">for</span> (T item : items) {                 <span class="comment">// traverse array</span>
+535              removeAll(item);                   <span class="comment">// remove array item</span>
+536          }
+537          <span class="literal">return</span> <span class="literal">true</span>;                           <span class="comment">// operation successful</span>
+538     } 
+539    
+540     <span class="comment">/**</span>
+541 <span class="comment">     * </span><span class="ST0">Deletes</span> <span class="ST0">all</span> <span class="ST0">occurrences</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">different</span> <span class="ST0">data</span> <span class="ST0">items</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">passed</span>
+542 <span class="comment">     * </span><span class="ST0">list</span> <span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">current</span> <span class="ST0">list</span>
+543 <span class="comment">     * </span>
+544 <span class="comment">     * </span><span class="ST0">@param</span> list <span class="comment">the</span> <span class="comment">LinkedList</span> <span class="comment">of</span> <span class="comment">items</span> <span class="comment">to</span> <span class="comment">remove</span>
+545 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">operation</span> <span class="comment">was</span> <span class="comment">successful</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+546      <span class="comment">*/</span>
+547     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">removeAll</span>(LinkedList&lt;T&gt; list) {
+548         <span class="literal">if</span> (list == <span class="literal">null</span>)   <span class="literal">return</span> <span class="literal">false</span>;           <span class="comment">// invalid list</span>
+549         <span class="literal">if</span> (list.isEmpty()) <span class="literal">return</span> <span class="literal">false</span>;           <span class="comment">// empty list</span>
+550         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; list.size(); i++) {     <span class="comment">// traverse list</span>
+551             removeAll(list.get(i));                 <span class="comment">// remove list item</span>
+552         }
+553         <span class="literal">return</span> <span class="literal">true</span>;                                <span class="comment">// operation successful</span>
+554     }
+555    
+556     <span class="comment">/**</span>
+557 <span class="comment">     * </span><span class="comment">Wipes</span> <span class="comment">out</span> <span class="comment">all</span> <span class="comment">memory</span> <span class="comment">of</span> <span class="comment">all</span> <span class="comment">contents</span> <span class="comment">of</span> <span class="comment">the</span> <span class="comment">list</span>
+558      <span class="comment">*/</span>
+559     <span class="literal">public</span> <span class="literal">void</span> <span class="ST2">clear</span>() {
+560         Node current = <span class="ST3">head</span>;                <span class="comment">// start at head of the list</span>
+561         <span class="literal">while</span> (current != <span class="literal">null</span>) {           <span class="comment">// traverse the list</span>
+562             Node next = current.<span class="ST3">next</span>;       <span class="comment">// reference to the next node</span>
+563             current.finalize();             <span class="comment">// wipe all memory from the node</span>
+564             current = next;                 <span class="comment">// move to the next node</span>
+565         }
+566         finalize();                         <span class="comment">// wipe all memory from the list</span>
+567     }
+568    
+569     <span class="comment">/**</span>
+570 <span class="comment">     * </span><span class="ST0">Checks</span> <span class="ST0">the</span> <span class="ST0">list</span> <span class="ST0">to</span> <span class="ST0">see</span> <span class="ST0">if</span> <span class="ST0">it</span> <span class="ST0">contains</span> <span class="ST0">all</span> <span class="ST0">the</span> <span class="ST0">items</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">array</span>
+571 <span class="comment">     * </span>
+572 <span class="comment">     * </span><span class="ST0">@param</span> items <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span> <span class="comment">array</span> <span class="comment">items</span> <span class="comment">to</span> <span class="comment">check</span>
+573 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">all</span> <span class="comment">items</span> <span class="comment">are</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">array</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+574      <span class="comment">*/</span>
+575     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">containsAll</span>(T[] items) {
+576         <span class="literal">if</span> (items == <span class="literal">null</span>)     <span class="literal">return</span> <span class="literal">false</span>;    <span class="comment">// invalid array</span>
+577         <span class="literal">if</span> (items.<span class="ST3">length</span> == 0) <span class="literal">return</span> <span class="literal">false</span>;    <span class="comment">// invalid array</span>
+578         <span class="literal">for</span> (T item : items) {                  <span class="comment">// traverse array</span>
+579             <span class="literal">if</span> (!contains(item)) <span class="literal">return</span> <span class="literal">false</span>;  <span class="comment">// item not in list</span>
+580         }
+581         <span class="literal">return</span> <span class="literal">true</span>;                            <span class="comment">// operation successful</span>
+582     }
+583     
+584     <span class="comment">/**</span>
+585 <span class="comment">     * </span><span class="ST0">Checks</span> <span class="ST0">the</span> <span class="ST0">list</span> <span class="ST0">to</span> <span class="ST0">see</span> <span class="ST0">if</span> <span class="ST0">it</span> <span class="ST0">contains</span> <span class="ST0">all</span> <span class="ST0">the</span> <span class="ST0">items</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">array</span>
+586 <span class="comment">     * </span>
+587 <span class="comment">     * </span><span class="ST0">@param</span> list <span class="comment">the</span> <span class="comment">LinkedList</span> <span class="comment">of</span> <span class="comment">items</span> <span class="comment">to</span> <span class="comment">check</span>
+588 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">all</span> <span class="comment">items</span> <span class="comment">are</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">list</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+589      <span class="comment">*/</span>
+590     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST2">containsAll</span>(LinkedList&lt;T&gt; list) {
+591         <span class="literal">if</span> (list == <span class="literal">null</span>)     <span class="literal">return</span> <span class="literal">false</span>;         <span class="comment">// invalid list</span>
+592         <span class="literal">if</span> (list.size() == 0) <span class="literal">return</span> <span class="literal">false</span>;         <span class="comment">// invalid list</span>
+593         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; list.size(); i++) {     <span class="comment">// traverse array</span>
+594             <span class="literal">if</span> (!contains((T)list.get(i))) 
+595                 <span class="literal">return</span> <span class="literal">false</span>;                       <span class="comment">// item not in list</span>
+596         }
+597         <span class="literal">return</span> <span class="literal">true</span>;                                <span class="comment">// operation successful</span>
+598     }
+599             
+600     <span class="comment">/**</span>
+601 <span class="comment">     * </span><span class="ST0">Appends</span> <span class="ST0">all</span> <span class="ST0">the</span> <span class="ST0">items</span> <span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">list</span> <span class="ST0">to</span> <span class="ST0">the</span> <span class="ST0">end</span> <span class="ST0">of</span> <span class="ST0">the</span> 
+602 <span class="comment">     * </span><span class="ST0">current</span> <span class="ST0">list</span>
+603 <span class="comment">     * </span>
+604 <span class="comment">     * </span><span class="ST0">@param</span> items <span class="comment">the</span> <span class="comment">array</span> <span class="comment">to</span> <span class="comment">append</span> <span class="comment">on</span>
+605      <span class="comment">*/</span>
+606     <span class="literal">public</span> <span class="literal">void</span> <span class="ST2">addAll</span>(T[] items) {
+607         <span class="literal">if</span> (items == <span class="literal">null</span>) <span class="literal">return</span>;                  <span class="comment">// error check</span>
+608         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; items.<span class="ST3">length</span>; i++) {    <span class="comment">// traverse array</span>
+609             <span class="literal">this</span>.add(items[i]);                     <span class="comment">// add array item</span>
+610         }
+611     }
+612     
+613     <span class="comment">/**</span>
+614 <span class="comment">     * </span><span class="ST0">Appends</span> <span class="ST0">all</span> <span class="ST0">the</span> <span class="ST0">items</span> <span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">list</span> <span class="ST0">to</span> <span class="ST0">the</span> <span class="ST0">end</span> <span class="ST0">of</span> <span class="ST0">the</span> 
+615 <span class="comment">     * </span><span class="ST0">current</span> <span class="ST0">list</span>
+616 <span class="comment">     * </span>
+617 <span class="comment">     * </span><span class="ST0">@param</span> list <span class="comment">the</span> <span class="comment">Linked</span> <span class="comment">list</span> <span class="comment">to</span> <span class="comment">append</span> <span class="comment">on</span>
+618      <span class="comment">*/</span>
+619     <span class="literal">public</span> <span class="literal">void</span> <span class="ST2">addAll</span>(LinkedList&lt;T&gt; list) {
+620         <span class="literal">if</span> (list == <span class="literal">null</span>) <span class="literal">return</span>;                   <span class="comment">// error check</span>
+621         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; list.size(); i++) {     <span class="comment">// traverse list</span>
+622             <span class="literal">this</span>.add(list.get(i));                  <span class="comment">// get and add item</span>
+623         }
+624     }
+625    
+626     <span class="comment">/**</span>
+627 <span class="comment">     * </span><span class="ST0">Appends</span> <span class="ST0">all</span> <span class="ST0">the</span> <span class="ST0">items</span> <span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">list</span> <span class="ST0">into</span> <span class="ST0">the</span> <span class="ST0">current</span> <span class="ST0">list</span> 
+628 <span class="comment">     * </span><span class="ST0">after</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">index</span>
+629 <span class="comment">     * </span>
+630 <span class="comment">     * </span><span class="ST0">@param</span> items <span class="comment">the</span> <span class="comment">array</span> <span class="comment">to</span> <span class="comment">append</span> <span class="comment">on</span>
+631 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">index</span> <span class="comment">location</span> <span class="comment">to</span> <span class="comment">append</span> <span class="comment">from</span>
+632      <span class="comment">*/</span>
+633     <span class="literal">public</span> <span class="literal">void</span> <span class="ST2">addAll</span>(T[] items, <span class="literal">int</span> index) {
+634         <span class="literal">if</span> (items == <span class="literal">null</span>)   <span class="literal">return</span>;                <span class="comment">// error check</span>
+635         <span class="literal">if</span> (!inRange(index)) <span class="literal">return</span>;                <span class="comment">// error check</span>
+636         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; items.<span class="ST3">length</span>; i++) {    <span class="comment">// traverse array</span>
+637             <span class="literal">this</span>.addAfter(items[i], index);         <span class="comment">// add array item after</span>
+638             index++;                                <span class="comment">// increase index</span>
+639         }
+640     }
+641     
+642     <span class="comment">/**</span>
+643 <span class="comment">     * </span><span class="ST0">Appends</span> <span class="ST0">all</span> <span class="ST0">the</span> <span class="ST0">items</span> <span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">list</span> <span class="ST0">into</span> <span class="ST0">the</span> <span class="ST0">current</span> <span class="ST0">list</span> 
+644 <span class="comment">     * </span><span class="ST0">after</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">index</span>
+645 <span class="comment">     * </span>
+646 <span class="comment">     * </span><span class="ST0">@param</span> list <span class="comment">the</span> <span class="comment">Linked</span> <span class="comment">list</span> <span class="comment">to</span> <span class="comment">append</span> <span class="comment">on</span>
+647 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">index</span> <span class="comment">location</span> <span class="comment">to</span> <span class="comment">append</span> <span class="comment">from</span>
+648      <span class="comment">*/</span>
+649     <span class="literal">public</span> <span class="literal">void</span> <span class="ST2">addAll</span>(LinkedList&lt;T&gt; list, <span class="literal">int</span> index) {
+650         <span class="literal">if</span> (list == <span class="literal">null</span>)    <span class="literal">return</span>;                <span class="comment">// error check</span>
+651         <span class="literal">if</span> (!inRange(index)) <span class="literal">return</span>;                <span class="comment">// error check</span>
+652         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; list.size(); i++) {     <span class="comment">// traverse list</span>
+653             <span class="literal">this</span>.addAfter(list.get(i), index);      <span class="comment">// get and add item after</span>
+654             index++;                                <span class="comment">// increase index</span>
+655         }
+656     }
+657     
+658     <span class="comment">/**</span>
+659 <span class="comment">    * </span><span class="ST0">Accesses</span> <span class="ST0">a</span> <span class="ST0">sub</span> <span class="ST0">list</span> <span class="ST0">from</span> <span class="ST0">the</span> <span class="ST0">main</span> <span class="ST0">list</span> <span class="ST0">based</span> <span class="ST0">on</span> <span class="ST0">the</span> <span class="ST0">passed</span> <span class="ST0">parameters</span>
+660 <span class="comment">    * </span>
+661 <span class="comment">    * </span><span class="ST0">@param</span> from <span class="comment">the</span> <span class="comment">index</span> <span class="comment">to</span> <span class="comment">start</span> <span class="comment">the</span> <span class="comment">sublist</span> <span class="comment">from</span>
+662 <span class="comment">    * </span><span class="ST0">@param</span> to <span class="comment">the</span> <span class="comment">index</span> <span class="comment">to</span> <span class="comment">end</span> <span class="comment">the</span> <span class="comment">sub</span> <span class="comment">list</span> <span class="comment">at</span>
+663 <span class="comment">    * </span><span class="ST0">@return</span> <span class="comment">a</span> <span class="comment">sub</span> <span class="comment">list</span> <span class="comment">from</span> <span class="comment">the</span> <span class="comment">main</span> <span class="comment">list</span>
+664     <span class="comment">*/</span>
+665     <span class="literal">public</span> LinkedList&lt;T&gt; <span class="ST2">subList</span>(<span class="literal">int</span> from, <span class="literal">int</span> to) {
+666         <span class="literal">if</span> (!inRange(from)) <span class="literal">return</span> <span class="literal">null</span>;            <span class="comment">// index out of range</span>
+667         <span class="literal">if</span> (!inRange(to))   <span class="literal">return</span> <span class="literal">null</span>;            <span class="comment">// index out of range</span>
+668         <span class="literal">if</span> (from &gt; to)      <span class="literal">return</span> <span class="literal">null</span>;            <span class="comment">// index not in line</span>
+669         LinkedList&lt;T&gt; list = <span class="literal">new</span> LinkedList&lt;&gt;();    <span class="comment">// create list</span>
+670         <span class="literal">for</span> (<span class="literal">int</span> i = from; i &lt;= to; i++) {          <span class="comment">// traverse indices</span>
+671             list.add(<span class="literal">t</span><span class="literal">his</span>.get(i));                  <span class="comment">// add to list from list</span>
+672         }
+673         <span class="literal">return</span> list;                                <span class="comment">// return new list</span>
+674     }
+675     
+676     <span class="comment">/**</span>
+677 <span class="comment">     * </span><span class="ST0">Mutates</span> <span class="ST0">the</span> <span class="ST0">list</span> <span class="ST0">into</span> <span class="ST0">a</span> <span class="ST0">list</span> <span class="ST0">only</span> <span class="ST0">matching</span> <span class="ST0">the</span> <span class="ST0">contents</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">array</span>
+678 <span class="comment">     * </span>
+679 <span class="comment">     * </span><span class="ST0">@param</span> array <span class="comment">the</span> <span class="comment">data</span> <span class="comment">objects</span> <span class="comment">to</span> <span class="comment">form</span> <span class="comment">the</span> <span class="comment">list</span> <span class="comment">from</span>
+680      <span class="comment">*/</span>
+681     <span class="literal">public</span> <span class="literal">final</span> <span class="literal">void</span> <span class="ST2">fromArray</span>(T[] array) {
+682         <span class="literal">if</span> (array == <span class="literal">null</span>) <span class="literal">return</span>;                  <span class="comment">// error check</span>
+683         finalize();                                 <span class="comment">// wipe list memory</span>
+684         <span class="literal">for</span> (T item : array) {                      <span class="comment">// traverse array</span>
+685             add(item);                              <span class="comment">// add array item</span>
+686         }
+687     }
+688     
+689     <span class="comment">/**</span>
+690 <span class="comment">     * </span><span class="ST0">Mutates</span> <span class="ST0">list</span> <span class="ST0">into</span> <span class="ST0">a</span> <span class="ST0">list</span> <span class="ST0">only</span> <span class="ST0">matching</span> <span class="ST0">the</span> <span class="ST0">contents</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">other</span> <span class="ST0">list</span>
+691 <span class="comment">     * </span>
+692 <span class="comment">     * </span><span class="ST0">@param</span> list <span class="comment">the</span> <span class="comment">data</span> <span class="comment">objects</span> <span class="comment">to</span> <span class="comment">form</span> <span class="comment">the</span> <span class="comment">list</span> <span class="comment">from</span>
+693      <span class="comment">*/</span>
+694     <span class="literal">public</span> <span class="literal">final</span> <span class="literal">void</span> <span class="ST2">fromLinkedList</span>(LinkedList&lt;T&gt; list) {
+695         <span class="literal">if</span> (list == <span class="literal">null</span>) <span class="literal">return</span>;                   <span class="comment">// error check</span>
+696         finalize();                                 <span class="comment">// wipe list memory</span>
+697         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; list.size(); i++) {     <span class="comment">// traverse list</span>
+698             add(list.get(i));                       <span class="comment">// get and add item</span>
+699         }
+700     }
+701     
+702     <span class="comment">/**</span>
+703 <span class="comment">     * </span><span class="ST0">Returns</span> <span class="ST0">an</span> <span class="ST0">array</span> <span class="ST0">that</span> <span class="ST0">contains</span> <span class="ST0">the</span> <span class="ST0">same</span> <span class="ST0">data</span> <span class="ST0">as</span> <span class="ST0">the</span> <span class="ST0">list</span>
+704 <span class="comment">     * </span>
+705 <span class="comment">     * </span><span class="ST0">@param</span> array <span class="comment">the</span> <span class="comment">data</span> <span class="comment">type</span> <span class="comment">array</span>
+706 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">an</span> <span class="comment">array</span> <span class="comment">of</span> <span class="comment">generic</span> <span class="comment">type</span> <span class="comment">T</span>
+707      <span class="comment">*/</span>
+708     <span class="literal">public</span> T[] <span class="ST2">toArray</span>(T[] array) {
+709         <span class="literal">if</span> (array == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">null</span>;
+710         array = (T[])(
+711                 Array.<span class="ST4">newInstance</span>(
+712                         array.getClass().getComponentType(), 
+713                         <span class="ST3">length</span>)
+714                 );                              <span class="comment">// create empty array</span>
+715         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; <span class="ST3">length</span>; i++) {      <span class="comment">// traverse list</span>
+716             array[i] = get(i);                  <span class="comment">// add to array</span>
+717         }
+718         <span class="literal">return</span> array;                           <span class="comment">// return completed array</span>
+719     }
+720         
+721     <span class="comment">/**</span>
+722 <span class="comment">     * </span><span class="ST0">Accessor</span> <span class="ST0">method</span> <span class="ST0">to</span> <span class="ST0">the</span> <span class="ST0">encapsulated</span><span class="ST0"> (</span><span class="ST0">private</span><span class="ST0">) </span><span class="ST0">property</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">first</span>
+723 <span class="comment">     * </span><span class="ST0">(</span><span class="ST0">head</span><span class="ST0">) </span><span class="ST0">node</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">list</span>
+724 <span class="comment">     * </span>
+725 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">reference</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">first</span> <span class="comment">node</span>
+726      <span class="comment">*/</span>
+727     <span class="literal">protected</span> Node <span class="ST2">getFirstNode</span>() {
+728         <span class="literal">return</span> <span class="ST3">head</span>;
+729     }
+730     
+731     <span class="comment">/**</span>
+732 <span class="comment">     * </span><span class="ST0">Accessor</span> <span class="ST0">method</span> <span class="ST0">to</span> <span class="ST0">the</span> <span class="ST0">encapsulated</span><span class="ST0"> (</span><span class="ST0">private</span><span class="ST0">) </span><span class="ST0">property</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">last</span>
+733 <span class="comment">     * </span><span class="ST0">(</span><span class="ST0">tail</span><span class="ST0">) </span><span class="ST0">node</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">list</span>
+734 <span class="comment">     * </span>
+735 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">reference</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">last</span> <span class="comment">node</span>
+736      <span class="comment">*/</span>
+737     <span class="literal">protected</span> Node <span class="ST2">getLastNode</span>() {
+738         <span class="literal">return</span> <span class="ST3">tail</span>;
+739     }
+740     
+741     <span class="comment">/**</span>
+742 <span class="comment">     * </span><span class="ST0">Accessor</span> <span class="ST0">method</span> <span class="ST0">to</span> <span class="ST0">retrieve</span> <span class="ST0">a</span> <span class="ST0">node</span> <span class="ST0">reference</span><span class="ST0"> (</span><span class="ST0">link</span><span class="ST0">, </span><span class="ST0">pointer</span> <span class="ST0">to</span><span class="ST0">) </span><span class="ST0">for</span> <span class="ST0">this</span>
+743 <span class="comment">     * </span><span class="ST0">index</span> <span class="ST0">location</span>
+744 <span class="comment">     * </span>
+745 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">subscript</span><span class="comment">, </span><span class="comment">location</span><span class="comment">, </span><span class="comment">index</span> <span class="comment">value</span>
+746 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">a</span> <span class="comment">reference</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">node</span> <span class="comment">at</span> <span class="comment">this</span> <span class="comment">location</span> <span class="comment">or</span> <span class="comment">null</span> 
+747      <span class="comment">*/</span>
+748     <span class="literal">protected</span> Node <span class="ST2">getNode</span>(<span class="literal">int</span> index) {
+749         <span class="literal">if</span> (!inRange(index))   <span class="literal">return</span> <span class="literal">null</span>;             <span class="comment">// not valid index</span>
+750         <span class="literal">if</span> (index == 0)        <span class="literal">return</span> getFirstNode();   <span class="comment">// first node returned     </span>
+751         <span class="literal">if</span> (index == <span class="ST3">length</span>-1) <span class="literal">return</span> getLastNode();    <span class="comment">// last node returned</span>
+752         Node current = <span class="ST3">head</span>;                            <span class="comment">// start at first node</span>
+753         <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; index; i++) {               <span class="comment">// move to index</span>
+754             current = current.<span class="ST3">next</span>;                     <span class="comment">// advance reference</span>
+755         }
+756         <span class="literal">return</span> current;                                 <span class="comment">// return reference</span>
+757     }
+758     
+759     <span class="comment">/**</span>
+760 <span class="comment">     * </span><span class="ST0">Error</span> <span class="ST0">checks</span> <span class="ST0">to</span> <span class="ST0">see</span> <span class="ST0">if</span> <span class="ST0">the</span> <span class="ST0">index</span> <span class="ST0">is</span> <span class="ST0">in</span> <span class="ST0">the</span> <span class="ST0">range</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">list</span>
+761 <span class="comment">     * </span>
+762 <span class="comment">     * </span><span class="ST0">@param</span> index <span class="comment">the</span> <span class="comment">location</span><span class="comment"> (</span><span class="comment">element</span> <span class="comment">number</span><span class="comment">) </span><span class="comment">to</span> <span class="comment">check</span>
+763 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">it</span> <span class="comment">is</span> <span class="comment">in</span><span class="comment">-</span><span class="comment">range</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+764      <span class="comment">*/</span>
+765     <span class="literal">private</span> <span class="literal">boolean</span> <span class="ST2">inRange</span>(<span class="literal">int</span> index) {
+766         <span class="literal">if</span> (isEmpty())       <span class="literal">return</span> <span class="literal">false</span>;  <span class="comment">// Empty list no valid index</span>
+767         <span class="literal">if</span> (index &lt; 0)       <span class="literal">return</span> <span class="literal">false</span>;  <span class="comment">// index before first valid number</span>
+768         <span class="literal">if</span> (index &gt;= <span class="ST3">length</span>) <span class="literal">return</span> <span class="literal">false</span>;  <span class="comment">// index after last valid number</span>
+769         <span class="literal">return</span> <span class="literal">true</span>;                        <span class="comment">// index is valid</span>
+770     }
+771     
+772 }
+</pre></body>
+</html>

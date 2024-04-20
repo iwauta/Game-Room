@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>FinalProject.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: monospace}
+pre {color: #000000; background-color: #ffffff; font-family: monospace}
+table {color: #404040; background-color: #e9e8e2; font-family: monospace}
+.ST0 {color: #969696; font-family: monospace; font-weight: bold}
+.ST1 {font-family: monospace; font-weight: bold}
+.comment {color: #969696}
+.ST3 {font-family: monospace; font-weight: bold; font-style: italic}
+.ST4 {font-family: monospace; font-style: italic}
+.ST2 {color: #ce54b8; font-family: monospace; font-style: italic}
+.string {color: #1e9347}
+.ST5 {color: #1e9347; font-family: monospace; font-weight: bold}
+.literal {color: #336bdd}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">C:\Users\owner\Desktop\CS40S\finalProject\src\finalproject\FinalProject.java</td></tr></table>
+<pre>
+  1 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">package</span> <span class="comment">class</span> <span class="comment">namespace</span> <span class="comment">*/</span>
+  2 <span class="literal">package</span> finalproject;
+  3 
+  4 <span class="comment">/**</span>
+  5 <span class="comment"> * </span><span class="comment">Required</span> <span class="comment">import</span> <span class="comment">statements</span>
+  6  <span class="comment">*/</span>
+  7 <span class="literal">import</span> collections.LinkedList;
+  8 <span class="literal">import</span> miniGames.MiniGames;
+  9 <span class="literal">import</span> miniGames.Player;
+ 10 <span class="literal">import</span> miniGames.RSP;
+ 11 <span class="literal">import</span> miniGames.NumberGuessing;
+ 12 <span class="literal">import</span> tools.Dialogs;
+ 13 <span class="literal">import</span> view.Home;
+ 14 <span class="literal">import</span> view.RSPUI;
+ 15 <span class="literal">import</span> view.RankUI;
+ 16 
+ 17 <span class="comment">/**</span>
+ 18 <span class="comment"> * </span><span class="ST0">FinalProject</span><span class="ST0"> - </span><span class="ST0">Final</span> <span class="ST0">project</span> <span class="ST0">for</span> <span class="ST0">CS40S</span><span class="ST0">.</span> <span class="comment">User</span> <span class="comment">can</span> <span class="comment">play</span> <span class="comment">multiple</span> <span class="comment">mini</span> <span class="comment">games</span> <span class="comment">and</span>
+ 19 <span class="comment"> * </span><span class="comment">bet</span> <span class="comment">points</span> <span class="comment">to</span> <span class="comment">gain</span><span class="comment"> (</span><span class="comment">if</span> <span class="comment">they</span> <span class="comment">win</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">lose</span><span class="comment"> (</span><span class="comment">if</span> <span class="comment">they</span> <span class="comment">lose</span><span class="comment">)</span><span class="comment">.</span> <span class="comment">Introduces</span> <span class="comment">rank</span> <span class="comment">of</span>
+ 20 <span class="comment"> * </span><span class="comment">final</span> <span class="comment">scores</span><span class="comment">.</span>
+ 21 <span class="comment"> *</span>
+ 22 <span class="comment"> * </span><span class="ST0">@author</span> <span class="comment">u</span><span class="comment">.</span><span class="comment">iwai</span>
+ 23 <span class="comment"> * </span><span class="ST0">@since</span><span class="comment"> 13-</span><span class="comment">Dec</span><span class="comment">-2022</span>
+ 24  <span class="comment">*/</span>
+ 25 <span class="literal">public</span> <span class="literal">class</span> <span class="ST1">FinalProject</span> {
+ 26 
+ 27     <span class="comment">// global valuables............</span>
+ 28     <span class="comment">// Choice of games</span>
+ 29     <span class="literal">static</span> <span class="literal">final</span> String <span class="ST2">CONTENTS</span>[]
+ 30             = {<span class="string">&quot;</span><span class="string">Rock Scissors Paper</span><span class="string">&quot;</span>, <span class="comment">// 0</span>
+ 31                 <span class="string">&quot;</span><span class="string">Number Guessing</span><span class="string">&quot;</span>, <span class="comment">// 1</span>
+ 32                 <span class="string">&quot;</span><span class="string">See the ranking</span><span class="string">&quot;</span>, <span class="comment">// 2</span>
+ 33                 <span class="string">&quot;</span><span class="string">Quit</span><span class="string">&quot;</span>}; <span class="comment">// 3</span>
+ 34 
+ 35     <span class="literal">public</span> <span class="literal">static</span> Player <span class="ST2">player</span>;     <span class="comment">// Player object</span>
+ 36     <span class="comment">// Create a list of players</span>
+ 37     <span class="literal">public</span> <span class="literal">static</span> LinkedList&lt;Player&gt; <span class="ST2">players</span> = <span class="literal">new</span> LinkedList&lt;&gt;();
+ 38     <span class="comment">// game objects</span>
+ 39     <span class="literal">public</span> <span class="literal">static</span> RSP <span class="ST2">rsp</span>;           <span class="comment">// RSP object</span>
+ 40     <span class="literal">public</span> <span class="literal">static</span> NumberGuessing <span class="ST2">gn</span>;   <span class="comment">// RSPBrickBreaker object</span>
+ 41     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">int</span> <span class="ST2">count</span>; <span class="comment">// number of guest players existing </span>
+ 42 
+ 43     <span class="comment">/**</span>
+ 44 <span class="comment">     * </span><span class="ST0">Main</span> <span class="ST0">method</span> <span class="ST0">for</span> <span class="ST0">the</span> <span class="ST0">project</span>
+ 45 <span class="comment">     *</span>
+ 46 <span class="comment">     * </span><span class="ST0">@param</span> args <span class="comment">the</span> <span class="comment">command</span> <span class="comment">line</span> <span class="comment">arguments</span>
+ 47      <span class="comment">*/</span>
+ 48     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">main</span>(String[] args) {
+ 49         <span class="ST4">welcome</span>();
+ 50     }
+ 51 
+ 52     <span class="comment">/**</span>
+ 53 <span class="comment">     * </span><span class="comment">Welcome</span> <span class="comment">screen</span>
+ 54      <span class="comment">*/</span>
+ 55     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">welcome</span>() {
+ 56         Home home = <span class="literal">new</span> Home();
+ 57     }
+ 58 
+ 59     <span class="comment">/**</span>
+ 60 <span class="comment">     * </span><span class="ST0">Initializes</span> <span class="ST0">the</span> <span class="ST0">propertie</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">user</span><span class="ST0">.</span>
+ 61      <span class="comment">*/</span>
+ 62     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">run</span>() {
+ 63         <span class="comment">// Create a Player object</span>
+ 64         <span class="literal">if</span> (Dialogs.<span class="ST4">yesNo</span>(<span class="string">&quot;</span><span class="string">Do you want to set your name?</span><span class="string">&quot;</span>)) {
+ 65             String name = Dialogs.<span class="ST4">input</span>(<span class="string">&quot;</span><span class="string">Input your name</span><span class="string">&quot;</span>);
+ 66             <span class="ST2">player</span> = <span class="literal">new</span> Player(name);    <span class="comment">// Player sets name</span>
+ 67         } <span class="literal">else</span> {
+ 68             <span class="ST2">player</span> = <span class="literal">new</span> Player();       <span class="comment">// Calls default constructor</span>
+ 69         }
+ 70         <span class="ST4">addRank</span>(<span class="ST2">player</span>);
+ 71         Dialogs.<span class="ST4">output</span>(<span class="string">&quot;</span><span class="string">Hello </span><span class="string">&quot;</span> + <span class="ST2">player</span>.getName() + <span class="string">&quot;</span><span class="string">!</span><span class="string">&quot;</span>);
+ 72         <span class="ST4">play</span>();
+ 73     }
+ 74 
+ 75     <span class="comment">/**</span>
+ 76 <span class="comment">     * </span><span class="comment">User</span> <span class="comment">plays</span> <span class="comment">the</span> <span class="comment">game</span>
+ 77      <span class="comment">*/</span>
+ 78     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">play</span>() {
+ 79         <span class="ST2">rsp</span> = <span class="literal">null</span>;
+ 80         <span class="ST2">gn</span> = <span class="literal">null</span>;
+ 81         <span class="comment">// User picks a game to play</span>
+ 82         String toDo = Dialogs.<span class="ST4">choices</span>
+ 83                         (<span class="string">&quot;</span><span class="ST5">\n</span><span class="string">What would you like to do?</span><span class="ST5">\n</span><span class="string">&quot;</span>, <span class="ST2">C</span><span class="ST2">ONTENTS</span>);
+ 84         <span class="comment">// Starts the game</span>
+ 85         <span class="literal">if</span> (toDo.equals(<span class="ST2">CONTENTS</span>[0])) { <span class="comment">// rsp</span>
+ 86             <span class="ST2">rsp</span> = <span class="literal">new</span> RSP();
+ 87             <span class="ST2">player</span>.inputBet();                     <span class="comment">// get user&#39;s bet</span>
+ 88             RSPUI rspUI = <span class="literal">new</span> RSPUI();             <span class="comment">// user interface for rsp</span>
+ 89         } <span class="literal">else</span> <span class="literal">if</span> (toDo.equals(<span class="ST2">CONTENTS</span>[1])) { <span class="comment">// guessing number</span>
+ 90             <span class="literal">final</span> String LEVEL[] = {<span class="string">&quot;</span><span class="string">EASY</span><span class="string">&quot;</span>, <span class="comment">// 0</span>
+ 91                 <span class="string">&quot;</span><span class="string">NORMAL</span><span class="string">&quot;</span>, <span class="comment">// 1</span>
+ 92                 <span class="string">&quot;</span><span class="string">HARD</span><span class="string">&quot;</span>}; <span class="comment">// 2</span>
+ 93             <span class="literal">int</span> num = 0;
+ 94             String choice = Dialogs.<span class="ST4">choices</span>
+ 95                             (<span class="string">&quot;</span><span class="ST5">\n</span><span class="string">What would you like to do?</span><span class="ST5">\n</span><span class="string">&quot;</span>, LEVEL);
+ 96             <span class="literal">if</span> (choice.equals(LEVEL[0])) {
+ 97                 num = 0; <span class="comment">// easy</span>
+ 98             } <span class="literal">else</span> <span class="literal">if</span> (choice.equals(LEVEL[1])) {
+ 99                 num = 1; <span class="comment">// normal</span>
+100             } <span class="literal">else</span> <span class="literal">if</span> (choice.equals(LEVEL[2])) {
+101                 num = 2; <span class="comment">// hard</span>
+102             }
+103             <span class="ST2">gn</span> = <span class="literal">new</span> NumberGuessing(num);
+104             <span class="ST2">player</span>.inputBet();                     <span class="comment">// get user&#39;s bet</span>
+105             <span class="ST4">numGuessing</span>();
+106         } <span class="literal">else</span> <span class="literal">if</span> (toDo.equals(<span class="ST2">CONTENTS</span>[2])) { <span class="comment">// displays the rank</span>
+107             System.<span class="ST2">out</span>.println(<span class="ST4">a</span><span class="ST4">ddRank</span>(<span class="ST2">player</span>));
+108             <span class="ST4">showRank</span>();
+109         } <span class="literal">else</span> <span class="literal">if</span> (toDo.equals(<span class="ST2">CONTENTS</span>[3])) { <span class="comment">// User wants to quit?</span>
+110             <span class="literal">if</span> (Dialogs.<span class="ST4">yesNo</span>(<span class="string">&quot;</span><span class="string">Are you sure you want to exit?</span><span class="string">&quot;</span>)) {
+111                 Dialogs.<span class="ST4">output</span>(<span class="string">&quot;</span><span class="string">Thank you for using </span><span class="string">&quot;</span> + Dialogs.<span class="ST2">title</span>);
+112                 Home home = <span class="literal">new</span> Home(); <span class="comment">// Go back to the home screen</span>
+113             }
+114         }
+115     }
+116 
+117     <span class="comment">/**</span>
+118 <span class="comment">     * </span><span class="ST0">Adds</span> <span class="ST0">or</span> <span class="ST0">takes</span> <span class="ST0">away</span> <span class="ST0">points</span> <span class="ST0">depending</span> <span class="ST0">on</span> <span class="ST0">the</span> <span class="ST0">result</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">game</span><span class="ST0">, </span><span class="ST0">displays</span>
+119 <span class="comment">     * </span><span class="ST0">the</span> <span class="ST0">current</span> <span class="ST0">score</span><span class="ST0">.</span>
+120      <span class="comment">*/</span>
+121     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">showResult</span>() {
+122         String text = <span class="string">&quot;&quot;</span>;
+123         <span class="comment">// Rock Scissors Paper</span>
+124         <span class="literal">if</span> (<span class="ST2">rsp</span> != <span class="literal">null</span>) {
+125             <span class="ST2">player</span>.setStatus(<span class="ST2">r</span><span class="ST2">sp</span>.didIWin());
+126         }
+127         <span class="comment">// Number Guessing</span>
+128         <span class="literal">if</span> (<span class="ST2">gn</span> != <span class="literal">null</span>) {
+129             <span class="ST2">player</span>.setStatus(<span class="ST2">g</span><span class="ST2">n</span>.didIWin());
+130         }
+131         <span class="comment">// Adds or subtracts points</span>
+132         <span class="ST2">player</span>.addScore(MiniGames.<span class="ST4">bet</span>
+133         (<span class="ST2">p</span><span class="ST2">layer</span>.getStatus(), <span class="ST2">p</span><span class="ST2">layer</span>.getBet()));
+134         <span class="comment">// Outputs their result and the current score</span>
+135         <span class="literal">if</span> (<span class="ST2">player</span>.getStatus()) {
+136             text += <span class="string">&quot;</span><span class="string">YOU WIN!!</span><span class="string">&quot;</span>;
+137         } <span class="literal">else</span> {
+138             text += <span class="string">&quot;</span><span class="string">YOU LOSE!!</span><span class="string">&quot;</span>;
+139         }
+140         text += <span class="string">&quot;</span><span class="ST5">\n</span><span class="ST5">\n</span><span class="string">Your current score: </span><span class="ST5">\n</span><span class="ST5">\t</span><span class="string">&quot;</span> + <span class="ST2">player</span>.getScore();
+141         Dialogs.<span class="ST4">output</span>(text);
+142         <span class="comment">// Keep playing if the user doesn&#39;t want to see the rank</span>
+143         <span class="literal">if</span> (!Dialogs.<span class="ST4">yesNo</span>(<span class="string">&quot;</span><span class="string">Do you want to see the ranking?</span><span class="string">&quot;</span>)) {
+144             <span class="ST4">play</span>();
+145         } <span class="comment">// Adds their final score to the list and display</span>
+146         <span class="literal">else</span> {
+147             <span class="ST4">addRank</span>(<span class="ST2">player</span>);
+148             <span class="ST4">showRank</span>();
+149         }
+150     }
+151 
+152     <span class="comment">/**</span>
+153 <span class="comment">     * </span><span class="ST0">Modifies</span> <span class="ST0">the</span> <span class="ST0">list</span> <span class="ST0">of</span> <span class="ST0">the</span> <span class="ST0">score</span><span class="ST0">.</span> <span class="comment">Adds</span> <span class="comment">the</span> <span class="comment">current</span> <span class="comment">score</span> <span class="comment">so</span> <span class="comment">that</span> <span class="comment">the</span> <span class="comment">list</span>
+154 <span class="comment">     * </span><span class="comment">is</span> <span class="comment">in</span> <span class="comment">order</span> <span class="comment">of</span> <span class="comment">higher</span> <span class="comment">scores</span><span class="comment">.</span>
+155 <span class="comment">     *</span>
+156 <span class="comment">     * </span><span class="ST0">@param</span> player <span class="comment">player</span> <span class="comment">to</span> <span class="comment">add</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">list</span>
+157 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">true</span><span class="comment"> (</span><span class="comment">data</span> <span class="comment">added</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">list</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">false</span><span class="comment"> (</span><span class="comment">unable</span> <span class="comment">do</span> <span class="comment">add</span><span class="comment">)</span>
+158      <span class="comment">*/</span>
+159     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">boolean</span> <span class="ST3">addRank</span>(Player player) {
+160         <span class="literal">if</span> (player == <span class="literal">null</span>) {
+161             <span class="literal">return</span> <span class="literal">false</span>;  <span class="comment">// unvalid data</span>
+162         } <span class="literal">else</span> { <span class="comment">// valid data</span>
+163             <span class="comment">// The list is empty </span>
+164             <span class="literal">if</span> (<span class="ST2">players</span>.isEmpty()) {
+165                 <span class="comment">// Adds the player to the front of the list</span>
+166                 <span class="ST2">players</span>.addFront(player);
+167                 <span class="literal">return</span> <span class="literal">true</span>;   <span class="comment">// Operation completed</span>
+168             } 
+169             <span class="comment">// Traverse the list</span>
+170             <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; <span class="ST2">players</span>.size(); i++) {
+171                 <span class="literal">if</span> (player.equals(<span class="ST2">p</span><span class="ST2">layers</span>.get(i))) {
+172                     <span class="comment">// Player already exists on the list, replace the data</span>
+173                     <span class="ST2">players</span>.set(i, player);
+174                     <span class="literal">return</span> <span class="literal">true</span>;   <span class="comment">// Operation completed</span>
+175                 }
+176             } 
+177             <span class="comment">// Traverse the list</span>
+178             <span class="literal">for</span> (<span class="literal">int</span> i = 0; i &lt; <span class="ST2">players</span>.size(); i++) {
+179                 <span class="comment">// current score is the highest</span>
+180                 <span class="literal">if</span> (player.getScore() &gt;= <span class="ST2">players</span>.front().getScore()){
+181                     <span class="ST2">players</span>.addFront(player);
+182                     <span class="literal">return</span> <span class="literal">true</span>;   <span class="comment">// Operation completed</span>
+183                 }
+184                 <span class="comment">// Compare the current player&#39;s score with ones on the list</span>
+185                 <span class="literal">if</span> (player.getScore() &gt;= <span class="ST2">players</span>.get(i).getScore()) {
+186                     <span class="comment">// Add before if current score was greater than the one next</span>
+187                     <span class="ST2">players</span>.addBefore(player, i);
+188                     <span class="literal">return</span> <span class="literal">true</span>;   <span class="comment">// Operation completed</span>
+189                 }
+190             } <span class="comment">// Current score was the lowest so far</span>
+191             <span class="literal">if</span> (player.getScore() &lt; <span class="ST2">players</span>.back().getScore()) {
+192                 <span class="comment">// Adds to the tale of the list</span>
+193                 <span class="ST2">players</span>.addBack(player);
+194                 <span class="literal">return</span> <span class="literal">true</span>;   <span class="comment">// Operation completed</span>
+195             }
+196         }
+197         <span class="literal">return</span> <span class="literal">false</span>; <span class="comment">// not able to add any data</span>
+198     }
+199 
+200     <span class="comment">/**</span>
+201 <span class="comment">     * </span><span class="comment">displays</span> <span class="comment">a</span> <span class="comment">ranking</span>
+202      <span class="comment">*/</span>
+203     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">showRank</span>() {
+204         RankUI ranking = <span class="literal">new</span> RankUI();
+205     }
+206 
+207     <span class="comment">/**</span>
+208 <span class="comment">     * </span><span class="comment">runs</span> <span class="comment">the</span> <span class="comment">program</span> <span class="comment">for</span> <span class="comment">Number</span> <span class="comment">Guessing</span>
+209      <span class="comment">*/</span>
+210     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST3">numGuessing</span>() {
+211         NumberGuessing.<span class="ST4">run</span>();
+212     }
+213 
+214 }
+215 
+</pre></body>
+</html>

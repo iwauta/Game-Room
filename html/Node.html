@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Node.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: monospace}
+pre {color: #000000; background-color: #ffffff; font-family: monospace}
+table {color: #404040; background-color: #e9e8e2; font-family: monospace}
+.ST0 {color: #969696; font-family: monospace; font-weight: bold}
+.comment {color: #969696}
+.ST1 {color: #9999ff; font-family: monospace; font-weight: bold}
+.string {color: #1e9347}
+.ST2 {color: #1e9347; font-family: monospace; font-weight: bold}
+.literal {color: #336bdd}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">C:\Users\owner\Desktop\CS40S\finalProject\src\collections\Node.java</td></tr></table>
+<pre>
+  1 
+  2 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">package</span> <span class="comment">class</span> <span class="comment">namespace</span> <span class="comment">*/</span>
+  3 <span class="literal">package</span> collections;
+  4 
+  5  
+  6 <span class="comment">/**</span>
+  7 <span class="comment"> * </span><span class="ST0">Node</span><span class="ST0">.</span><span class="ST0">java</span><span class="ST0"> - </span><span class="ST0">a</span> <span class="ST0">representation</span> <span class="ST0">of</span> <span class="ST0">a</span> <span class="ST0">generic</span> <span class="ST0">node</span> <span class="ST0">for</span> <span class="ST0">use</span> <span class="ST0">with</span>
+  8 <span class="comment"> * </span><span class="ST0">a</span> <span class="ST0">LinkedList</span> <span class="ST0">object</span><span class="ST0">, </span><span class="ST0">and</span> <span class="ST0">could</span> <span class="ST0">be</span><span class="ST0"> &quot;</span><span class="ST0">visualized</span><span class="ST0">&quot; </span><span class="ST0">as</span><span class="ST0">:</span>
+  9 <span class="comment"> * </span>
+ 10 <span class="comment"> *                      </span><span class="ST0">NODE</span>
+ 11 <span class="comment"> *                </span><span class="ST0">+--------------+</span>
+ 12 <span class="comment"> * </span><span class="ST0">previous</span> <span class="ST1">&lt;---- |              |</span>
+ 13 <span class="ST1"> *                </span><span class="ST1">|     data     |</span>
+ 14 <span class="ST1"> *                </span><span class="ST1">|   (generic)  |</span>
+ 15 <span class="ST1"> *                </span><span class="ST1">|              |----&gt;</span> <span class="ST0">next</span>
+ 16 <span class="comment"> *                +--------------+</span>
+ 17 <span class="comment"> *</span>
+ 18 <span class="comment"> * </span><span class="ST0">@author</span> <span class="comment">u</span><span class="comment">.</span><span class="comment">iwai</span>
+ 19 <span class="comment"> * </span><span class="ST0">@param</span> <span class="comment">&lt;T&gt;</span> <span class="comment">The</span> <span class="comment">generic</span> <span class="comment">data</span> <span class="comment">type</span> <span class="comment">used</span> <span class="comment">in</span> <span class="comment">the</span> <span class="comment">class</span>
+ 20 <span class="comment"> * </span><span class="ST0">@since</span><span class="comment"> 13-</span><span class="comment">Dec</span><span class="comment">-2022</span>
+ 21  <span class="comment">*/</span>
+ 22 <span class="literal">public</span> <span class="literal">class</span> Node &lt;T&gt;
+ 23 {
+ 24 
+ 25     <span class="comment">/**</span> <span class="comment">The</span> <span class="comment">generic</span> <span class="comment">data</span> <span class="comment">type</span> <span class="comment">stored</span> <span class="comment">*/</span>
+ 26     <span class="literal">public</span> T data;
+ 27     
+ 28     <span class="comment">/**</span> 
+ 29 <span class="comment">     * </span><span class="comment">Self</span> <span class="comment">reference</span><span class="comment"> (</span><span class="comment">pointer</span><span class="comment">,</span><span class="comment">link</span><span class="comment">) </span><span class="comment">to</span> <span class="comment">the</span> <span class="comment">next</span> <span class="comment">node</span> <span class="comment">that</span><span class="comment"> &#39;</span><span class="comment">will</span><span class="comment">&#39; </span><span class="comment">be</span>
+ 30 <span class="comment">     * </span><span class="comment">in</span> <span class="comment">a</span><span class="comment"> &#39;</span><span class="comment">chain</span><span class="comment">&#39; (</span><span class="comment">linked</span> <span class="comment">list</span><span class="comment">)</span>
+ 31      <span class="comment">*/</span>
+ 32     <span class="literal">public</span> Node next;
+ 33     
+ 34     <span class="comment">/**</span> <span class="comment">Link</span><span class="comment"> / </span><span class="comment">pointer</span><span class="comment"> / </span><span class="comment">reference</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">previous</span><span class="comment"> (</span><span class="comment">back</span><span class="comment">) </span><span class="comment">node</span> <span class="comment">*/</span>
+ 35     <span class="literal">public</span> Node previous;
+ 36     
+ 37     
+ 38     <span class="comment">/**</span>
+ 39 <span class="comment">     * </span><span class="ST0">Class</span> <span class="ST0">constructor</span><span class="ST0">, </span><span class="ST0">sets</span> <span class="ST0">the</span> <span class="ST0">class</span> <span class="ST0">properties</span>
+ 40 <span class="comment">     * </span>
+ 41 <span class="comment">     * </span><span class="ST0">@param</span> <span class="comment">data</span> <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span><span class="comment"> (</span><span class="comment">generic</span><span class="comment">)</span>
+ 42 <span class="comment">     * </span><span class="ST0">@param</span> <span class="comment">next</span> <span class="comment">reference</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">next</span> <span class="comment">Node</span> <span class="comment">object</span>
+ 43 <span class="comment">     * </span><span class="ST0">@param</span> <span class="comment">previous</span> <span class="comment">reference</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">previous</span> <span class="comment">Node</span> <span class="comment">object</span>
+ 44      <span class="comment">*/</span>
+ 45     <span class="literal">public</span> Node(T data, Node next, Node previous) {
+ 46         <span class="literal">this</span>.data     = data;
+ 47         <span class="literal">this</span>.next     = next;
+ 48         <span class="literal">this</span>.previous = previous;
+ 49         <span class="comment">// We assign the parameters of this method to the properties of this </span>
+ 50         <span class="comment">// class (the global variables of the class)        </span>
+ 51     }
+ 52     
+ 53     <span class="comment">/**</span>
+ 54 <span class="comment">     * </span><span class="ST0">Class</span> <span class="ST0">constructor</span><span class="ST0">, </span><span class="ST0">sets</span> <span class="ST0">the</span> <span class="ST0">class</span> <span class="ST0">properties</span>
+ 55 <span class="comment">     * </span>
+ 56 <span class="comment">     * </span><span class="ST0">@param</span> <span class="comment">data</span> <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span><span class="comment"> (</span><span class="comment">generic</span><span class="comment">)</span>
+ 57 <span class="comment">     * </span><span class="ST0">@param</span> <span class="comment">next</span> <span class="comment">reference</span> <span class="comment">to</span> <span class="comment">the</span> <span class="comment">next</span> <span class="comment">Node</span> <span class="comment">object</span>
+ 58      <span class="comment">*/</span>
+ 59     <span class="literal">public</span> Node(T data, Node next) {
+ 60         <span class="literal">this</span>.data     = data;
+ 61         <span class="literal">this</span>.next     = next;
+ 62         <span class="literal">this</span>.previous = <span class="literal">null</span>;       
+ 63     }
+ 64     
+ 65     
+ 66     <span class="comment">/**</span>
+ 67 <span class="comment">     * </span><span class="ST0">Class</span> <span class="ST0">constructor</span><span class="ST0">, </span><span class="ST0">sets</span> <span class="ST0">the</span> <span class="ST0">class</span> <span class="ST0">properties</span>
+ 68 <span class="comment">     * </span>
+ 69 <span class="comment">     * </span><span class="ST0">@param</span> <span class="comment">data</span> <span class="comment">the</span> <span class="comment">node</span> <span class="comment">data</span><span class="comment"> (</span><span class="comment">generic</span><span class="comment">)</span>
+ 70      <span class="comment">*/</span>
+ 71     <span class="literal">public</span> Node(T data) {
+ 72         <span class="literal">this</span>.data     = data;
+ 73         <span class="literal">this</span>.next     = <span class="literal">null</span>;
+ 74         <span class="literal">this</span>.previous = <span class="literal">null</span>;       
+ 75     }
+ 76         
+ 77     <span class="comment">/**</span>
+ 78 <span class="comment">     * </span><span class="comment">Default</span> <span class="comment">constructor</span><span class="comment">, </span><span class="comment">set</span> <span class="comment">class</span> <span class="comment">properties</span>
+ 79      <span class="comment">*/</span>
+ 80     <span class="literal">public</span> Node() {
+ 81         <span class="comment">// As an option, you can have one constructor call another constructor</span>
+ 82         <span class="comment">// (methods can other methods) - but constructors, in Java we use the</span>
+ 83         <span class="comment">// keyword &quot;this&quot;</span>
+ 84         <span class="literal">this</span>(<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>);
+ 85     }
+ 86         
+ 87     <span class="comment">/**</span>
+ 88 <span class="comment">     * </span><span class="ST0">String</span> <span class="ST0">representation</span> <span class="ST0">of</span> <span class="ST0">this</span> <span class="ST0">object</span>
+ 89 <span class="comment">     *</span>
+ 90 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">The</span> <span class="comment">object</span> <span class="comment">represented</span> <span class="comment">as</span> <span class="comment">a</span> <span class="comment">String</span>
+ 91      <span class="comment">*/</span>
+ 92     @Override
+ 93     <span class="literal">public</span> String toString() {
+ 94         String text = <span class="string">&quot;&quot;</span>;
+ 95         
+ 96         <span class="comment">// Display the data stored in the node (or null)</span>
+ 97         <span class="literal">if</span> (data == <span class="literal">null</span>) text += <span class="string">&quot;</span><span class="string">null</span><span class="string">&quot;</span>;               <span class="comment">// Invalid data </span>
+ 98         <span class="literal">else</span>              text += data.toString();      <span class="comment">// Generic has toString</span>
+ 99                 
+100         <span class="comment">// Display the connection to the next node</span>
+101         text += <span class="string">&quot;</span><span class="ST2">\t</span><span class="string">&quot;</span>;
+102         <span class="literal">if</span>      (next      == <span class="literal">null</span>) text += <span class="string">&quot;</span><span class="string">n -&gt; null</span><span class="string">&quot;</span>;
+103         <span class="literal">else</span> <span class="literal">if</span> (next.data == <span class="literal">null</span>) text += <span class="string">&quot;</span><span class="string">n -&gt; node</span><span class="string">&quot;</span>;
+104         <span class="literal">else</span>                        text += <span class="string">&quot;</span><span class="string">n -&gt; </span><span class="string">&quot;</span> + next.data.toString();
+105         
+106         <span class="comment">// Display the connection to the previous node </span>
+107         text += <span class="string">&quot;</span><span class="ST2">\t</span><span class="string">&quot;</span>;
+108         <span class="literal">if</span>      (previous      == <span class="literal">null</span>) text += <span class="string">&quot;</span><span class="string">p -&gt; null</span><span class="string">&quot;</span>;
+109         <span class="literal">else</span> <span class="literal">if</span> (previous.data == <span class="literal">null</span>) text += <span class="string">&quot;</span><span class="string">p -&gt; node</span><span class="string">&quot;</span>;
+110         <span class="literal">else</span>                            text += <span class="string">&quot;</span><span class="string">p -&gt; </span><span class="string">&quot;</span> + previous.data.toString();
+111                 
+112         <span class="comment">// Add the memory address of this node</span>
+113         text += <span class="string">&quot;</span><span class="ST2">\t</span><span class="string">&quot;</span> + <span class="literal">super</span>.toString();
+114         
+115         <span class="comment">// Return all the data compiled</span>
+116         <span class="literal">return</span> text;
+117     }
+118    
+119     <span class="comment">/**</span>
+120 <span class="comment">     * </span><span class="ST0">Deep</span> <span class="ST0">comparison</span><span class="ST0">, </span><span class="ST0">determines</span> <span class="ST0">if</span> <span class="ST0">two</span> <span class="ST0">objects</span> <span class="ST0">are</span><span class="ST0"> &quot;</span><span class="ST0">equal</span><span class="ST0">&quot; </span><span class="ST0">in</span> <span class="ST0">this</span> <span class="ST0">context</span>
+121 <span class="comment">     *</span>
+122 <span class="comment">     * </span><span class="ST0">@param</span> <span class="comment">object</span> <span class="comment">the</span> <span class="comment">object</span> <span class="comment">to</span> <span class="comment">compare</span> <span class="comment">to</span>
+123 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">the</span> <span class="comment">objects</span> <span class="comment">are</span><span class="comment"> &quot;</span><span class="comment">equal</span><span class="comment">&quot; (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">not</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+124      <span class="comment">*/</span>
+125     @Override
+126     <span class="literal">public</span> <span class="literal">boolean</span> equals(Object object) {
+127         <span class="comment">// Error check first for nulls appearing which could cause crashes</span>
+128         <span class="literal">if</span> (<span class="literal">this</span>.data == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">false</span>;    <span class="comment">// Data inside this object</span>
+129         <span class="literal">if</span> (object    == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">false</span>;    <span class="comment">// Parameter sent to this method</span>
+130         <span class="comment">// Convert (cast) the object into a &quot;Node&quot;</span>
+131         Node that = (Node)object;
+132         <span class="literal">if</span> (that.data == <span class="literal">null</span>) <span class="literal">return</span> <span class="literal">false</span>;    <span class="comment">// Data inside the parameter</span>
+133         <span class="comment">// Now compare both data properties</span>
+134         <span class="literal">return</span> <span class="literal">this</span>.data.equals(that.data);        
+135         <span class="comment">// Same kind of code as...</span>
+136 <span class="comment">//        T dataFromThisClass = (T)this.data;</span>
+137 <span class="comment">//        T dataFromParameter = (T)that.data;        </span>
+138 <span class="comment">//        if (dataFromThisClass.equals(dataFromParameter)) {</span>
+139 <span class="comment">//            return true;</span>
+140 <span class="comment">//        }</span>
+141 <span class="comment">//        else {</span>
+142 <span class="comment">//            return false;</span>
+143 <span class="comment">//        }</span>
+144     }
+145        
+146     <span class="comment">/**</span>
+147 <span class="comment">     * </span><span class="ST0">a</span> <span class="ST0">Deep</span> <span class="ST0">clone</span><span class="ST0">, </span><span class="ST0">creates</span> <span class="ST0">a</span> <span class="ST0">duplicate</span> <span class="ST0">object</span> <span class="ST0">using</span> <span class="ST0">new</span> <span class="ST0">memory</span>
+148 <span class="comment">     *</span>
+149 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">a</span><span class="comment"> &quot;</span><span class="comment">clone</span><span class="comment">&quot; </span><span class="comment">of</span> <span class="comment">the</span> <span class="comment">object</span> <span class="comment">using</span> <span class="comment">new</span> <span class="comment">memory</span>
+150      <span class="comment">*/</span>
+151     @Override
+152     <span class="literal">public</span> Node clone() {
+153         <span class="literal">return</span> <span class="literal">new</span> Node(<span class="literal">this</span>.data, <span class="literal">this</span>.next, <span class="literal">this</span>.previous);
+154         <span class="comment">// Annoynmous clone object created and returned</span>
+155     }
+156     
+157     <span class="comment">/**</span>
+158 <span class="comment">     * </span><span class="comment">Frees</span> <span class="comment">up</span> <span class="comment">all</span> <span class="comment">memory</span> <span class="comment">used</span> <span class="comment">by</span> <span class="comment">this</span> <span class="comment">object</span><span class="comment">, </span><span class="comment">and</span> <span class="comment">it</span> <span class="comment">is</span> <span class="comment">called</span> <span class="comment">when</span> <span class="comment">this</span> 
+159 <span class="comment">     * </span><span class="comment">object</span> <span class="comment">is</span><span class="comment"> &quot;</span><span class="comment">deleted</span><span class="comment">&quot; </span><span class="comment">or</span><span class="comment"> &quot;</span><span class="comment">removed</span><span class="comment">&quot; </span><span class="comment">or</span><span class="comment"> &quot;</span><span class="comment">destroyed</span><span class="comment">&quot;</span>
+160      <span class="comment">*/</span>
+161     @Override
+162     <span class="literal">public</span> <span class="literal">void</span> finalize() {
+163         data = <span class="literal">null</span>;
+164         next = previous = <span class="literal">null</span>;     <span class="comment">// Simplified line of code</span>
+165         System.gc();                <span class="comment">// Runs the garbage collector in Java</span>
+166         <span class="comment">// The &#39;garbage collector&#39; is how Java manages memory. References to </span>
+167         <span class="comment">// &#39;memory&#39; locations (e.g. variables, objects, etc.) that do not </span>
+168         <span class="comment">// contain actual data (for example a null) can be considered &#39;garbage&#39;</span>
+169         <span class="comment">// wastes of memory and should be &#39;cleaned up&#39;. This means the memory </span>
+170         <span class="comment">// can be &#39;freed up&#39; so other parts of the program could use that </span>
+171         <span class="comment">// memory and the memory isn&#39;t wasted. Java does do this automatically</span>
+172         <span class="comment">// (like C# it has &quot;automatic garbage collection&quot;) when it &#39;finds the </span>
+173         <span class="comment">// time&#39; in the execution cycle, but you can make Java do it </span>
+174         <span class="comment">// explicitly by running the line above.</span>
+175     }
+176     
+177 }
+</pre></body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>NumberGuessing.java</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+<!--
+body {color: #000000; background-color: #ffffff; font-family: monospace}
+pre {color: #000000; background-color: #ffffff; font-family: monospace}
+table {color: #404040; background-color: #e9e8e2; font-family: monospace}
+.ST0 {color: #969696; font-family: monospace; font-weight: bold}
+.ST1 {font-family: monospace; font-weight: bold}
+.comment {color: #969696}
+.ST4 {font-family: monospace; font-weight: bold; font-style: italic}
+.ST3 {font-family: monospace; font-style: italic}
+.ST2 {color: #ce54b8; font-family: monospace; font-style: italic}
+.string {color: #1e9347}
+.ST5 {color: #1e9347; font-family: monospace; font-weight: bold}
+.literal {color: #336bdd}
+-->
+</style>
+</head>
+<body>
+<table width="100%"><tr><td align="center">C:\Users\owner\Desktop\CS40S\finalProject\src\miniGames\NumberGuessing.java</td></tr></table>
+<pre>
+ 1 <span class="comment">/**</span> <span class="comment">Required</span> <span class="comment">package</span> <span class="comment">class</span> <span class="comment">namespace</span> <span class="comment">*/</span>
+ 2 <span class="literal">package</span> miniGames;
+ 3 
+ 4 <span class="comment">/**</span> <span class="comment">required</span> <span class="comment">package</span> <span class="comment">class</span> <span class="comment">namespace</span> <span class="comment">*/</span>
+ 5 <span class="literal">import</span> finalproject.FinalProject;
+ 6 <span class="literal">import</span> tools.Dialogs;
+ 7 <span class="literal">import</span> tools.Numbers;
+ 8 
+ 9  
+10 <span class="comment">/**</span>
+11 <span class="comment"> * </span><span class="ST0">NumberGuessing</span><span class="ST0">.</span><span class="ST0">java</span><span class="ST0"> - </span><span class="ST0">main</span> <span class="ST0">structure</span> <span class="ST0">of</span> <span class="ST0">Numer</span> <span class="ST0">Guessing</span><span class="ST0">.</span> <span class="comment">User</span> <span class="comment">gets</span> <span class="comment">different</span> 
+12 <span class="comment"> * </span><span class="comment">number</span> <span class="comment">of</span> <span class="comment">guesses</span> <span class="comment">corresponds</span> <span class="comment">to</span> <span class="comment">a</span> <span class="comment">level</span> <span class="comment">they</span> <span class="comment">choose</span>
+13 <span class="comment"> *</span>
+14 <span class="comment"> * </span><span class="ST0">@author</span> <span class="comment">u</span><span class="comment">.</span><span class="comment">iwai</span>
+15 <span class="comment"> * </span><span class="ST0">@since</span><span class="comment"> 2023/01/27, 12:52:55</span>
+16  <span class="comment">*/</span>
+17 <span class="literal">public</span> <span class="literal">class</span> <span class="ST1">NumberGuessing</span> <span class="literal">extends</span> MiniGames
+18 {
+19 
+20     <span class="comment">// Properties......</span>
+21     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">final</span> <span class="literal">double</span> <span class="ST2">EASY_RATE</span> = 1.2;
+22     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">final</span> <span class="literal">double</span> <span class="ST2">NORMAL_RATE</span> = 1.5;
+23     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">final</span> <span class="literal">double</span> <span class="ST2">HARD_RATE</span> = 1.7;
+24     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">int</span> <span class="ST2">count</span>;
+25     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">int</span> <span class="ST2">number</span>;
+26     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">int</span> <span class="ST2">userInput</span>;
+27     <span class="comment">// Range of the rangom number</span>
+28     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">final</span> <span class="literal">int</span> <span class="ST2">MIN</span> = 1;
+29     <span class="literal">private</span> <span class="literal">static</span> <span class="literal">final</span> <span class="literal">int</span> <span class="ST2">MAX</span> = 20;
+30     
+31     <span class="comment">/**</span>
+32 <span class="comment">     * </span><span class="ST0">Constructor</span><span class="ST0">, </span><span class="ST0">set</span> <span class="ST0">class</span> <span class="ST0">properties</span>
+33 <span class="comment">     * </span>
+34 <span class="comment">     * </span><span class="ST0">@param</span> num <span class="comment">use</span><span class="comment">&#39;</span><span class="comment">s</span> <span class="comment">choice</span> <span class="comment">of</span> <span class="comment">level</span><span class="comment"> 0(</span><span class="comment">easy</span><span class="comment">) </span><span class="comment">or</span><span class="comment"> 1(</span><span class="comment">normal</span><span class="comment">) </span><span class="comment">or</span><span class="comment"> 2(</span><span class="comment">hard</span><span class="comment">)</span>
+35      <span class="comment">*/</span>
+36     <span class="literal">public</span> <span class="ST1">NumberGuessing</span>(<span class="literal">int</span> num) {
+37         <span class="literal">super</span>(1);
+38         <span class="comment">// Sets the rate depanding on the level</span>
+39         <span class="literal">if</span>(num == 0){
+40             <span class="literal">super</span>.<span class="ST3">setRate</span>(<span class="ST2">E</span><span class="ST2">ASY_RATE</span>);
+41             <span class="ST2">count</span> = 6;
+42         }
+43         <span class="literal">else</span> <span class="literal">if</span>(num == 1){
+44             <span class="literal">super</span>.<span class="ST3">setRate</span>(<span class="ST2">N</span><span class="ST2">ORMAL_RATE</span>);
+45             <span class="ST2">count</span> = 5;
+46         }
+47         <span class="literal">else</span>{
+48             <span class="literal">super</span>.<span class="ST3">setRate</span>(<span class="ST2">H</span><span class="ST2">ARD_RATE</span>);
+49             <span class="ST2">count</span> = 3;
+50         }
+51     }
+52     
+53     <span class="comment">/**</span>
+54 <span class="comment">     * </span><span class="comment">Main</span> <span class="comment">logic</span> <span class="comment">of</span> <span class="comment">the</span> <span class="comment">game</span>
+55      <span class="comment">*/</span>
+56     <span class="literal">public</span> <span class="literal">static</span> <span class="literal">void</span> <span class="ST4">run</span>() {
+57         <span class="comment">// Generates a random number between MIN and MAX as an opponent&#39;s choice</span>
+58         <span class="ST2">number</span> = Numbers.<span class="ST3">random</span>(<span class="ST2">M</span><span class="ST2">IN</span>, <span class="ST2">M</span><span class="ST2">AX</span>);
+59         String text = <span class="string">&quot;</span><span class="ST5">\t</span><span class="string">Enter your guess</span><span class="ST5">\n</span><span class="ST5">\t</span><span class="string">Range: </span><span class="string">&quot;</span> + <span class="ST2">MIN</span> 
+60                 + <span class="string">&quot;</span><span class="string"> - </span><span class="string">&quot;</span> + <span class="ST2">MAX</span> + <span class="string">&quot;</span><span class="ST5">\n</span><span class="ST5">\n</span><span class="ST5">\t</span><span class="string">&quot;</span> + <span class="ST2">count</span> + <span class="string">&quot;</span><span class="string"> guess left</span><span class="string">&quot;</span>;
+61         String text2= <span class="string">&quot;&quot;</span>;
+62         <span class="ST2">userInput</span> = Dialogs.<span class="ST3">inputInteger</span>(text, <span class="ST2">M</span><span class="ST2">IN</span>, <span class="ST2">M</span><span class="ST2">AX</span>);
+63         <span class="comment">// user guessed incorrectly</span>
+64         <span class="literal">while</span>(<span class="ST2">count</span> &gt;= 1 &amp;&amp; <span class="ST2">userInput</span> != <span class="ST2">number</span>) {
+65             <span class="comment">// reduce guesses remaining</span>
+66             <span class="ST2">count</span> --;
+67             text = <span class="string">&quot;</span><span class="ST5">\t</span><span class="string">Enter your guess</span><span class="ST5">\n</span><span class="ST5">\t</span><span class="string">Range: </span><span class="string">&quot;</span> + <span class="ST2">MIN</span> 
+68                 + <span class="string">&quot;</span><span class="string"> - </span><span class="string">&quot;</span> + <span class="ST2">MAX</span> + <span class="string">&quot;</span><span class="ST5">\n</span><span class="ST5">\n</span><span class="ST5">\t</span><span class="string">&quot;</span> + <span class="ST2">count</span> + <span class="string">&quot;</span><span class="string"> guess left</span><span class="string">&quot;</span>;
+69             String result = <span class="string">&quot;</span><span class="string">Your guess: </span><span class="string">&quot;</span> + <span class="ST2">userInput</span>;
+70             <span class="literal">if</span> (<span class="ST2">userInput</span> &gt; <span class="ST2">number</span>) text2 = <span class="string">&quot;</span><span class="ST5">\n</span><span class="ST5">\n</span><span class="string">Your guess is too big!</span><span class="ST5">\n</span><span class="string">&quot;</span>;
+71             <span class="literal">else</span>                    text2 = <span class="string">&quot;</span><span class="ST5">\n</span><span class="ST5">\n</span><span class="string">Your guess is too small!</span><span class="ST5">\n</span><span class="string">&quot;</span>;
+72             <span class="comment">// user guesses again</span>
+73             <span class="ST2">userInput</span> = Dialogs.<span class="ST3">inputInteger</span>
+74                         (result + text2 + text, <span class="ST2">M</span><span class="ST2">IN</span>, <span class="ST2">M</span><span class="ST2">AX</span>);
+75         }
+76         <span class="comment">// Game set (user guessed correctly or used up their guesses)</span>
+77         FinalProject.<span class="ST3">showResult</span>();
+78     }
+79     
+80     <span class="comment">/**</span>
+81 <span class="comment">     * </span><span class="ST0">Determines</span> <span class="ST0">if</span> <span class="ST0">the</span> <span class="ST0">user</span> <span class="ST0">wins</span> <span class="ST0">or</span> <span class="ST0">loses</span>
+82 <span class="comment">     * </span>
+83 <span class="comment">     * </span><span class="ST0">@return</span> <span class="comment">user</span> <span class="comment">wins</span><span class="comment"> (</span><span class="comment">true</span><span class="comment">) </span><span class="comment">or</span> <span class="comment">user</span> <span class="comment">loses</span><span class="comment"> (</span><span class="comment">false</span><span class="comment">)</span>
+84      <span class="comment">*/</span>
+85     @Override
+86     <span class="literal">public</span> <span class="literal">boolean</span> <span class="ST1">didIWin</span>() {
+87         String result = <span class="string">&quot;</span><span class="string">Your guess: </span><span class="string">&quot;</span> + <span class="ST2">userInput</span>;
+88         <span class="comment">// user guessed correctly</span>
+89         <span class="literal">if</span>(<span class="ST2">userInput</span> == <span class="ST2">number</span>){
+90             Dialogs.<span class="ST3">output</span>(result + <span class="string">&quot;</span><span class="ST5">\n</span><span class="ST5">\n</span><span class="string">Congrats! You guessed right!</span><span class="string">&quot;</span>);
+91             <span class="literal">return</span> <span class="literal">true</span>;
+92         }
+93         <span class="comment">// user didn&#39;t guess correctly</span>
+94         Dialogs.<span class="ST3">output</span>(result + <span class="string">&quot;</span><span class="ST5">\n</span><span class="ST5">\n</span><span class="string">You have no guesses left!</span><span class="ST5">\n</span><span class="ST5">\n</span><span class="string">The number was: </span><span class="string">&quot;</span> + <span class="ST2">number</span>);
+95         <span class="literal">return</span> <span class="literal">false</span>;
+96     }
+97     
+98 }
+</pre></body>
+</html>
