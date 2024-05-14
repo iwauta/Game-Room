@@ -22,7 +22,7 @@ import view.RankUI;
  */
 public class FinalProject {
 
-    // global valuables................................................
+    // Global valuables................................................
     // Choice of games
     static final String CONTENTS[]
              = {"Rock Scissors Paper", // 0
@@ -44,7 +44,7 @@ public class FinalProject {
      */
     public static void main(String[] args) {
         welcome();
-//        run();
+        run();
     }
 
     /**
@@ -154,7 +154,7 @@ public class FinalProject {
                 // Adds the player to the front of the list
                 players.addFront(player);
                 return true;   // Operation completed
-            } // Traverse the list
+            } // Traverse the listss
             for (int i = 0; i < players.size(); i++) {
                 if (player == players.get(i)){
                     // Player already exists on the list, replace the data

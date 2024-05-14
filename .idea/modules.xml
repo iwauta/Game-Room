@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CS40S Final Project.iml" filepath="$PROJECT_DIR$/CS40S Final Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GameRoom/GameRoom.iml" filepath="$PROJECT_DIR$/GameRoom/GameRoom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GameRoom1.iml" filepath="$PROJECT_DIR$/GameRoom1.iml" />
     </modules>
   </component>
 </project>
